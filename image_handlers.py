@@ -34,6 +34,7 @@ def get_mask(processed_output):
 def draw_boxes(frame, result, ct, width, height):
     '''
     Draw bounding boxes onto the frame.
+    with a minimun confidence thereshold ct
     '''
     for box in result: # Output shape is nx7
         conf = box[2]

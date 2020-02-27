@@ -81,7 +81,6 @@ def handle_personDet(output, input_shape):
     detPeople=output['detection_out'] #[1x1xNx7], where N is the number of detected pedestrians.   
     print(detPeople.shape)
 #    print(detPeople[0][0].shape)
-#    print(out_cartype.shape)
     return detPeople[0][0]
 
 def handle_output(model_type):

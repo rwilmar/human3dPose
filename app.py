@@ -4,10 +4,10 @@ import numpy as np
 
 #source /opt/intel/openvino/bin/setupvars.sh            ##remember##
 
-
 def get_args():
     '''
-    Gets the arguments from the command line.
+    Gets the arguments from the command line. 
+    means ho be always oppened from a command line interface
     '''
 
     parser = argparse.ArgumentParser("Basic Edge App with Inference Engine")

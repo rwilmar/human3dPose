@@ -1,0 +1,485 @@
+<?xml version="1.0"?>
+<robot name="human_try">
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="upper_body">
+    <visual>
+      <geometry>
+        <box size="0.25 .2 .2"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0.125"/>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_link_to_upper_body" type="continuous">
+    <parent link="base_link"/>
+    <child link="upper_body"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 0.02"/>
+  </joint>
+
+
+  <link name="lower_body">
+    <visual>
+      <geometry>
+        <box size="0.25 .2 .2"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.125"/>
+      <material name="blue">
+        <color rgba="0 0 .8 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_link_to_lower_body" type="continuous">
+    <parent link="base_link"/>
+    <child link="lower_body"/>
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 -0.02"/>
+  </joint>
+
+  <link name="right_thigh">
+    <visual>
+      <geometry>
+        <box size="0.4 .05 .05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.2"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="lower_body_to_right_thigh" type="continuous">
+    <parent link="lower_body"/>
+    <child link="right_thigh"/>
+    <axis xyz="1 0 0" />
+    <origin xyz="0.07 0 -0.25"/>
+  </joint>
+
+  <link name="left_thigh">
+    <visual>
+      <geometry>
+        <box size="0.4 .05 .05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.2"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="lower_body_to_left_thigh" type="continuous">
+    <parent link="lower_body"/>
+    <child link="left_thigh"/>
+    <axis xyz="1 0 0" />
+    <origin xyz="-0.07 0 -0.25"/>
+  </joint>
+
+    <link name="right_knee">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_thigh_to_right_knee" type="continuous">
+    <parent link="right_thigh"/>
+    <child link="right_knee"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.4"/>
+  </joint>
+
+  <link name="left_knee">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_thigh_to_left_knee" type="continuous">
+    <parent link="left_thigh"/>
+    <child link="left_knee"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.4"/>
+  </joint>
+
+    <link name="right_shank">
+    <visual>
+      <geometry>
+        <box size="0.4 .04 .04"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.2"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_knee_to_right_shank" type="continuous">
+    <parent link="right_knee"/>
+    <child link="right_shank"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 -0.025"/>
+  </joint>
+
+  <link name="left_shank">
+    <visual>
+      <geometry>
+        <box size="0.4 .04 .04"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.2"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_knee_to_left_shank" type="continuous">
+    <parent link="left_knee"/>
+    <child link="left_shank"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 -0.025"/>
+  </joint>
+
+   <link name="right_ankle">
+    <visual>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_shank_to_right_ankle" type="continuous">
+    <parent link="right_shank"/>
+    <child link="right_ankle"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.4"/>
+  </joint>
+
+  <link name="left_ankle">
+    <visual>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_shank_to_left_ankle" type="continuous">
+    <parent link="left_shank"/>
+    <child link="left_ankle"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.4"/>
+  </joint>
+
+   <link name="right_foot">
+    <visual>
+      <geometry>
+        <box size="0.02 .15 .06"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0.02 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_ankle_to_right_foot" type="fixed">
+    <parent link="right_ankle"/>
+    <child link="right_foot"/>
+    <origin xyz="0 0 -0.02"/>
+  </joint>
+
+  <link name="left_foot">
+    <visual>
+      <geometry>
+        <box size="0.02 .15 .06"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0.02 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_ankle_to_left_foot" type="fixed">
+    <parent link="left_ankle"/>
+    <child link="left_foot"/>
+    <origin xyz="0 0 -0.02"/>
+  </joint>
+
+  <link name="right_shoulder">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="upper_body_to_right_shoulder" type="continuous">
+    <parent link="upper_body"/>
+    <child link="right_shoulder"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.13 0 0.22"/>
+  </joint>
+
+  <link name="left_shoulder">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="upper_body_to_left_shoulder" type="continuous">
+    <parent link="upper_body"/>
+    <child link="left_shoulder"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="-0.13 0 0.22"/>
+  </joint>
+
+
+  <link name="right_upperarm">
+    <visual>
+      <geometry>
+        <box size="0.3 .05 .05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.15"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_shoulder_to_right_upperarm" type="continuous">
+    <parent link="right_shoulder"/>
+    <child link="right_upperarm"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 -0.015"/>
+  </joint>
+
+  <link name="left_upperarm">
+    <visual>
+      <geometry>
+        <box size="0.3 .05 .05"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.15"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_shoulder_to_left_upperarm" type="continuous">
+    <parent link="left_shoulder"/>
+    <child link="left_upperarm"/>
+    <axis xyz="1 0 0"/>
+    <origin xyz="0 0 -0.015"/>
+  </joint>
+
+    <link name="right_elbow">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_upperarm_to_right_elbow" type="continuous">
+    <parent link="right_upperarm"/>
+    <child link="right_elbow"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 0 -0.3"/>
+  </joint>
+
+  <link name="left_elbow">
+    <visual>
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_upperarm_to_left_elbow" type="continuous">
+    <parent link="left_upperarm"/>
+    <child link="left_elbow"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 0 -0.3"/>
+  </joint>
+
+    <link name="right_forearm">
+    <visual>
+      <geometry>
+        <box size="0.3 .04 .04"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.15"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_elbow_to_right_forearm" type="continuous">
+    <parent link="right_elbow"/>
+    <child link="right_forearm"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.025"/>
+  </joint>
+
+  <link name="left_forearm">
+    <visual>
+      <geometry>
+        <box size="0.3 .04 .04"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 -0.15"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_elbow_to_left_forearm" type="continuous">
+    <parent link="left_elbow"/>
+    <child link="left_forearm"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 -0.025"/>
+  </joint>
+
+   <link name="right_wrist">
+    <visual>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_forearm_to_right_wrist" type="continuous">
+    <parent link="right_forearm"/>
+    <child link="right_wrist"/>
+    <axis xyz="1 1 1"/>
+    <origin xyz="0 0 -0.3"/>
+  </joint>
+
+  <link name="left_wrist">
+    <visual>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_forearm_to_left_wrist" type="continuous">
+    <parent link="left_forearm"/>
+    <child link="left_wrist"/>
+    <axis xyz="1 1 1"/>
+    <origin xyz="0 0 -0.3"/>
+  </joint>
+
+   <link name="right_hand">
+    <visual>
+      <geometry>
+        <box size="0.02 .06 .1"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0.02 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="right_wrist_to_right_hand" type="fixed">
+    <parent link="right_wrist"/>
+    <child link="right_hand"/>
+    <origin xyz="0 0 -0.015"/>
+  </joint>
+
+  <link name="left_hand">
+    <visual>
+      <geometry>
+        <box size="0.02 .06 .1"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="-0.02 0 0"/>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <joint name="left_wrist_to_left_hand" type="fixed">
+    <parent link="left_wrist"/>
+    <child link="left_hand"/>
+    <origin xyz="0 0 -0.015"/>
+  </joint>
+
+  <link name="neck">
+    <visual>
+      <geometry>
+        <sphere radius="0.04"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="base_link_to_neck" type="continuous">
+    <parent link="base_link"/>
+    <child link="neck"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0 0 0.3"/>
+  </joint>
+
+  <link name="head">
+    <visual>
+      <geometry>
+        <sphere radius="0.1"/>
+      </geometry>
+      <origin rpy="0 1.57075 0" xyz="0 0 0"/>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="neck_to_head" type="continuous">
+    <parent link="neck"/>
+    <child link="head"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0 0 0.125"/>
+  </joint>
+
+</robot>

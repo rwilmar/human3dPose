@@ -1,0 +1,1735 @@
+<?xml version="1.0" ?>
+<mapping>
+	<map>
+		<framework name="1034" out_port_id="1034"/>
+		<IR id="542" name="1033/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="979" out_port_id="979"/>
+		<IR id="449" name="978/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="869" out_port_id="869"/>
+		<IR id="263" name="869" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="988" out_port_id="988"/>
+		<IR id="466" name="988" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1037" out_port_id="1037"/>
+		<IR id="548" name="1037" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="910" out_port_id="910"/>
+		<IR id="330" name="910" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.11.3.weight" out_port_id="model.11.3.weight"/>
+		<IR id="115" name="Mul1_17573/Fused_Mul_2157321575_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.decoder1.0.0.weight" out_port_id="refinement_stages.1.trunk.0.decoder1.0.0.weight"/>
+		<IR id="295" name="Mul1_17885/Fused_Mul_2167721679_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="881" out_port_id="881"/>
+		<IR id="281" name="881" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="864" out_port_id="864"/>
+		<IR id="253" name="864" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="906" out_port_id="906"/>
+		<IR id="324" name="906" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="801" out_port_id="801"/>
+		<IR id="144" name="801" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1025" out_port_id="1025"/>
+		<IR id="526" name="1024/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1049" out_port_id="1049"/>
+		<IR id="570" name="1049" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1073" out_port_id="1073"/>
+		<IR id="606" name="1073" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.3.trunk.0.0.weight" out_port_id="refinement_stages.1.trunk.3.trunk.0.0.weight"/>
+		<IR id="342" name="Mul1_17957/Fused_Mul_2170121703_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.decoder1.1.0.weight" out_port_id="refinement_stages.2.trunk.0.decoder1.1.0.weight"/>
+		<IR id="404" name="Mul1_18065/Fused_Mul_2173721739_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="980" out_port_id="980"/>
+		<IR id="450" name="980" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1092" out_port_id="1092"/>
+		<IR id="641" name="1091/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="842" out_port_id="842"/>
+		<IR id="214" name="841/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="813" out_port_id="813"/>
+		<IR id="168" name="812/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="727" out_port_id="727"/>
+		<IR id="21" name="727" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.8.3.weight" out_port_id="model.8.3.weight"/>
+		<IR id="85" name="Mul1_17501/Fused_Mul_2154921551_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.encoder2.1.0.weight" out_port_id="refinement_stages.0.trunk.0.encoder2.1.0.weight"/>
+		<IR id="170" name="Mul1_17681/Fused_Mul_2160921611_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="783" out_port_id="783"/>
+		<IR id="114" name="783" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1045" out_port_id="1045"/>
+		<IR id="560" name="1045" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="860" out_port_id="860"/>
+		<IR id="246" name="859/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="858" out_port_id="858"/>
+		<IR id="242" name="858" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="861" out_port_id="861"/>
+		<IR id="247" name="861" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1041" out_port_id="1041"/>
+		<IR id="554" name="1041" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="866" out_port_id="866"/>
+		<IR id="258" name="866" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.7.0.weight" out_port_id="model.7.0.weight"/>
+		<IR id="70" name="3054430547_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1063" out_port_id="1063"/>
+		<IR id="592" name="Interpolate/1063" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="736" out_port_id="736"/>
+		<IR id="36" name="736" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="884" out_port_id="884"/>
+		<IR id="286" name="884" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.3.trunk.0.0.weight" out_port_id="refinement_stages.2.trunk.3.trunk.0.0.weight"/>
+		<IR id="446" name="Mul1_18125/Fused_Mul_2175721759_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="936" out_port_id="936"/>
+		<IR id="377" name="936" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.2.initial.0.weight" out_port_id="refinement_stages.1.trunk.2.initial.0.weight"/>
+		<IR id="321" name="onnx_initializer_node_refinement_stages.1.trunk.2.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.2.trunk.0.0.weight" out_port_id="refinement_stages.4.trunk.2.trunk.0.0.weight"/>
+		<IR id="638" name="Mul1_18437/Fused_Mul_2186121863_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.2.0.weight" out_port_id="model.2.0.weight"/>
+		<IR id="20" name="3055230555_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1095" out_port_id="1095"/>
+		<IR id="646" name="1094/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="792" out_port_id="792"/>
+		<IR id="129" name="792" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="786" out_port_id="786"/>
+		<IR id="119" name="786" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.decoder2.0.0.weight" out_port_id="refinement_stages.4.trunk.0.decoder2.0.0.weight"/>
+		<IR id="594" name="Mul1_18365/Fused_Mul_2183721839_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.3.trunk.1.0.weight" out_port_id="refinement_stages.0.trunk.3.trunk.1.0.weight"/>
+		<IR id="243" name="Mul1_17801/Fused_Mul_2164921651_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1005" out_port_id="1005"/>
+		<IR id="493" name="1004/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="751" out_port_id="751"/>
+		<IR id="61" name="751" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.9.0.weight" out_port_id="model.9.0.weight"/>
+		<IR id="90" name="3058430587_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.5.0.weight" out_port_id="model.5.0.weight"/>
+		<IR id="50" name="3057230575_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="983" out_port_id="983"/>
+		<IR id="455" name="983" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1088" out_port_id="1088"/>
+		<IR id="632" name="1088" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="756" out_port_id="756"/>
+		<IR id="69" name="756" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.6.3.weight" out_port_id="model.6.3.weight"/>
+		<IR id="65" name="Mul1_17453/Fused_Mul_2153321535_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="770" out_port_id="770"/>
+		<IR id="93" name="Add1_17514/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="953" out_port_id="953"/>
+		<IR id="402" name="952/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.1.trunk.1.0.weight" out_port_id="refinement_stages.3.trunk.1.trunk.1.0.weight"/>
+		<IR id="523" name="Mul1_18257/Fused_Mul_2180121803_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1080" out_port_id="1080"/>
+		<IR id="620" name="1080" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="945" out_port_id="945"/>
+		<IR id="390" name="945" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="828" out_port_id="828"/>
+		<IR id="189" name="Interpolate/828" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.1.initial.0.weight" out_port_id="refinement_stages.2.trunk.1.initial.0.weight"/>
+		<IR id="409" name="onnx_initializer_node_refinement_stages.2.trunk.1.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="757" out_port_id="757"/>
+		<IR id="71" name="757" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.1.trunk.1.0.weight" out_port_id="refinement_stages.1.trunk.1.trunk.1.0.weight"/>
+		<IR id="315" name="Mul1_17921/Fused_Mul_2168921691_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1022" out_port_id="1022"/>
+		<IR id="521" name="1021/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="744" out_port_id="744"/>
+		<IR id="49" name="744" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1015" out_port_id="1015"/>
+		<IR id="507" name="1015" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1061" out_port_id="1061"/>
+		<IR id="590" name="1061" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1032" out_port_id="1032"/>
+		<IR id="538" name="1032" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.1.initial.0.weight" out_port_id="refinement_stages.0.trunk.1.initial.0.weight"/>
+		<IR id="201" name="onnx_initializer_node_refinement_stages.0.trunk.1.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1072" out_port_id="1072"/>
+		<IR id="605" name="Interpolate/1072" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="734" out_port_id="734"/>
+		<IR id="33" name="Add1_17370/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.decoder1.0.0.weight" out_port_id="refinement_stages.3.trunk.0.decoder1.0.0.weight"/>
+		<IR id="503" name="Mul1_18221/Fused_Mul_2178921791_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1067" out_port_id="1067"/>
+		<IR id="598" name="1067" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="initial_stage.heatmaps.1.0.weight" out_port_id="initial_stage.heatmaps.1.0.weight"/>
+		<IR id="150" name="onnx_initializer_node_initial_stage.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="718" out_port_id="718"/>
+		<IR id="6" name="718" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="777" out_port_id="777"/>
+		<IR id="104" name="777" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="971" out_port_id="971"/>
+		<IR id="434" name="971" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1020" out_port_id="1020"/>
+		<IR id="517" name="1020" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1031" out_port_id="1031"/>
+		<IR id="537" name="1030/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.encoder1.1.0.weight" out_port_id="refinement_stages.2.trunk.0.encoder1.1.0.weight"/>
+		<IR id="368" name="Mul1_17993/Fused_Mul_2171321715_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="763" out_port_id="763"/>
+		<IR id="81" name="763" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="974" out_port_id="974"/>
+		<IR id="439" name="974" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="836" out_port_id="836"/>
+		<IR id="204" name="836" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.decoder1.1.0.weight" out_port_id="refinement_stages.4.trunk.0.decoder1.1.0.weight"/>
+		<IR id="612" name="Mul1_18401/Fused_Mul_2184921851_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.2.initial.0.weight" out_port_id="refinement_stages.0.trunk.2.initial.0.weight"/>
+		<IR id="217" name="onnx_initializer_node_refinement_stages.0.trunk.2.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="766" out_port_id="766"/>
+		<IR id="86" name="766" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1097" out_port_id="1097"/>
+		<IR id="648" name="1097" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="905" out_port_id="905"/>
+		<IR id="320" name="905" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.encoder1.0.0.weight" out_port_id="refinement_stages.2.trunk.0.encoder1.0.0.weight"/>
+		<IR id="363" name="Mul1_17981/Fused_Mul_2170921711_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="970" out_port_id="970"/>
+		<IR id="433" name="969/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1027" out_port_id="1027"/>
+		<IR id="528" name="1027" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="862" out_port_id="862"/>
+		<IR id="248" name="862" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.2.trunk.0.0.weight" out_port_id="refinement_stages.0.trunk.2.trunk.0.0.weight"/>
+		<IR id="222" name="Mul1_17765/Fused_Mul_2163721639_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.heatmaps.1.0.weight" out_port_id="refinement_stages.1.heatmaps.1.0.weight"/>
+		<IR id="358" name="onnx_initializer_node_refinement_stages.1.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1047" out_port_id="1047"/>
+		<IR id="565" name="1047" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.0.0.weight" out_port_id="model.0.0.weight"/>
+		<IR id="5" name="Mul1_/Fused_Mul_2148521487_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="750" out_port_id="750"/>
+		<IR id="59" name="750" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.10.0.weight" out_port_id="model.10.0.weight"/>
+		<IR id="100" name="3056830571_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="767" out_port_id="767"/>
+		<IR id="88" name="Add1_17502/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="789" out_port_id="789"/>
+		<IR id="124" name="789" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.heatmaps.1.0.weight" out_port_id="refinement_stages.2.heatmaps.1.0.weight"/>
+		<IR id="462" name="onnx_initializer_node_refinement_stages.2.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.heatmaps.0.0.weight" out_port_id="refinement_stages.0.heatmaps.0.0.weight"/>
+		<IR id="249" name="onnx_initializer_node_refinement_stages.0.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1087" out_port_id="1087"/>
+		<IR id="631" name="1087" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.2.trunk.1.0.weight" out_port_id="refinement_stages.1.trunk.2.trunk.1.0.weight"/>
+		<IR id="331" name="Mul1_17945/Fused_Mul_2169721699_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="797" out_port_id="797"/>
+		<IR id="138" name="796/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="747" out_port_id="747"/>
+		<IR id="54" name="747" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="758" out_port_id="758"/>
+		<IR id="73" name="Add1_17466/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1070" out_port_id="1070"/>
+		<IR id="603" name="1070" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.3.trunk.1.0.weight" out_port_id="refinement_stages.4.trunk.3.trunk.1.0.weight"/>
+		<IR id="659" name="Mul1_18473/Fused_Mul_2187321875_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1051" out_port_id="1051"/>
+		<IR id="574" name="1050/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.11.0.weight" out_port_id="model.11.0.weight"/>
+		<IR id="110" name="3058030583_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.decoder1.0.0.weight" out_port_id="refinement_stages.0.trunk.0.decoder1.0.0.weight"/>
+		<IR id="191" name="Mul1_17717/Fused_Mul_2162121623_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.6.0.weight" out_port_id="model.6.0.weight"/>
+		<IR id="60" name="3055630559_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.heatmaps.1.0.weight" out_port_id="refinement_stages.3.heatmaps.1.0.weight"/>
+		<IR id="566" name="onnx_initializer_node_refinement_stages.3.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="769" out_port_id="769"/>
+		<IR id="91" name="769" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1026" out_port_id="1026"/>
+		<IR id="527" name="1026" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="973" out_port_id="973"/>
+		<IR id="438" name="972/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="984" out_port_id="984"/>
+		<IR id="456" name="984" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.3.trunk.0.0.weight" out_port_id="refinement_stages.3.trunk.3.trunk.0.0.weight"/>
+		<IR id="550" name="Mul1_18293/Fused_Mul_2181321815_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="987" out_port_id="987"/>
+		<IR id="465" name="987" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1052" out_port_id="1052"/>
+		<IR id="575" name="1052" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="962" out_port_id="962"/>
+		<IR id="418" name="962" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="845" out_port_id="845"/>
+		<IR id="220" name="845" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="924" out_port_id="924"/>
+		<IR id="356" name="924" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1107" out_port_id="1107"/>
+		<IR id="668" name="1107" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.3.initial.0.weight" out_port_id="refinement_stages.0.trunk.3.initial.0.weight"/>
+		<IR id="233" name="onnx_initializer_node_refinement_stages.0.trunk.3.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="779" out_port_id="779"/>
+		<IR id="108" name="Add1_17550/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="871" out_port_id="871"/>
+		<IR id="267" name="870/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="cpm.1.0.weight" out_port_id="cpm.1.0.weight"/>
+		<IR id="125" name="Mul1_17597/Fused_Mul_2158121583_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1108" out_port_id="1108"/>
+		<IR id="669" name="1108" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1066" out_port_id="1066"/>
+		<IR id="597" name="1065/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="966" out_port_id="966"/>
+		<IR id="424" name="966" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="950" out_port_id="950"/>
+		<IR id="397" name="Interpolate/950" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="822" out_port_id="822"/>
+		<IR id="181" name="821/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="initial_stage.heatmaps.0.0.weight" out_port_id="initial_stage.heatmaps.0.0.weight"/>
+		<IR id="145" name="onnx_initializer_node_initial_stage.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.1.initial.0.weight" out_port_id="refinement_stages.4.trunk.1.initial.0.weight"/>
+		<IR id="617" name="onnx_initializer_node_refinement_stages.4.trunk.1.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.1.trunk.1.0.weight" out_port_id="refinement_stages.4.trunk.1.trunk.1.0.weight"/>
+		<IR id="627" name="Mul1_18425/Fused_Mul_2185721859_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1060" out_port_id="1060"/>
+		<IR id="589" name="1059/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1048" out_port_id="1048"/>
+		<IR id="569" name="1048" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.decoder2.1.0.weight" out_port_id="refinement_stages.1.trunk.0.decoder2.1.0.weight"/>
+		<IR id="287" name="Mul1_17873/Fused_Mul_2167321675_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="753" out_port_id="753"/>
+		<IR id="64" name="753" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="948" out_port_id="948"/>
+		<IR id="395" name="948" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="990" out_port_id="990"/>
+		<IR id="470" name="989/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.decoder1.0.0.weight" out_port_id="refinement_stages.4.trunk.0.decoder1.0.0.weight"/>
+		<IR id="607" name="Mul1_18389/Fused_Mul_2184521847_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.decoder2.1.0.weight" out_port_id="refinement_stages.2.trunk.0.decoder2.1.0.weight"/>
+		<IR id="391" name="Mul1_18041/Fused_Mul_2172921731_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.2.initial.0.weight" out_port_id="refinement_stages.3.trunk.2.initial.0.weight"/>
+		<IR id="529" name="onnx_initializer_node_refinement_stages.3.trunk.2.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.decoder1.1.0.weight" out_port_id="refinement_stages.3.trunk.0.decoder1.1.0.weight"/>
+		<IR id="508" name="Mul1_18233/Fused_Mul_2179321795_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="849" out_port_id="849"/>
+		<IR id="226" name="849" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="846" out_port_id="846"/>
+		<IR id="221" name="846" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="967" out_port_id="967"/>
+		<IR id="428" name="967" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="985" out_port_id="985"/>
+		<IR id="460" name="985" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="956" out_port_id="956"/>
+		<IR id="407" name="955/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.1.trunk.1.0.weight" out_port_id="refinement_stages.0.trunk.1.trunk.1.0.weight"/>
+		<IR id="211" name="Mul1_17753/Fused_Mul_2163321635_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="893" out_port_id="893"/>
+		<IR id="299" name="893" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="991" out_port_id="991"/>
+		<IR id="471" name="991" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1086" out_port_id="1086"/>
+		<IR id="630" name="1085/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="923" out_port_id="923"/>
+		<IR id="352" name="923" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.3.initial.0.weight" out_port_id="refinement_stages.1.trunk.3.initial.0.weight"/>
+		<IR id="337" name="onnx_initializer_node_refinement_stages.1.trunk.3.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1106" out_port_id="1106"/>
+		<IR id="664" name="1106" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1036" out_port_id="1036"/>
+		<IR id="544" name="1036" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1096" out_port_id="1096"/>
+		<IR id="647" name="1096" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1079" out_port_id="1079"/>
+		<IR id="616" name="1079" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1064" out_port_id="1064"/>
+		<IR id="593" name="1064" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="938" out_port_id="938"/>
+		<IR id="381" name="937/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="728" out_port_id="728"/>
+		<IR id="23" name="Add1_17346/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="808" out_port_id="808"/>
+		<IR id="159" name="808" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="900" out_port_id="900"/>
+		<IR id="313" name="899/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="982" out_port_id="982"/>
+		<IR id="454" name="981/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="721" out_port_id="721"/>
+		<IR id="11" name="721" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="723" out_port_id="723"/>
+		<IR id="14" name="723" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1081" out_port_id="1081"/>
+		<IR id="621" name="1081" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="986" out_port_id="986"/>
+		<IR id="461" name="986" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="835" out_port_id="835"/>
+		<IR id="200" name="835" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="752" out_port_id="752"/>
+		<IR id="63" name="Add1_17442/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1076" out_port_id="1076"/>
+		<IR id="611" name="1076" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="816" out_port_id="816"/>
+		<IR id="173" name="815/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1044" out_port_id="1044"/>
+		<IR id="559" name="1044" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="785" out_port_id="785"/>
+		<IR id="118" name="Add1_17574/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="810" out_port_id="810"/>
+		<IR id="163" name="809/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="745" out_port_id="745"/>
+		<IR id="51" name="745" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="778" out_port_id="778"/>
+		<IR id="106" name="778" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.1.trunk.0.0.weight" out_port_id="refinement_stages.4.trunk.1.trunk.0.0.weight"/>
+		<IR id="622" name="Mul1_18413/Fused_Mul_2185321855_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="875" out_port_id="875"/>
+		<IR id="273" name="875" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="994" out_port_id="994"/>
+		<IR id="476" name="994" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.2.trunk.0.0.weight" out_port_id="refinement_stages.1.trunk.2.trunk.0.0.weight"/>
+		<IR id="326" name="Mul1_17933/Fused_Mul_2169321695_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="939" out_port_id="939"/>
+		<IR id="382" name="939" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="740" out_port_id="740"/>
+		<IR id="43" name="Add1_17394/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="880" out_port_id="880"/>
+		<IR id="280" name="Interpolate/880" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.3.trunk.0.0.weight" out_port_id="refinement_stages.0.trunk.3.trunk.0.0.weight"/>
+		<IR id="238" name="Mul1_17789/Fused_Mul_2164521647_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="772" out_port_id="772"/>
+		<IR id="96" name="772" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1043" out_port_id="1043"/>
+		<IR id="558" name="1042/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="915" out_port_id="915"/>
+		<IR id="340" name="915" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="725" out_port_id="725"/>
+		<IR id="18" name="Add1_17334/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="877" out_port_id="877"/>
+		<IR id="277" name="876/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="825" out_port_id="825"/>
+		<IR id="186" name="824/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="784" out_port_id="784"/>
+		<IR id="116" name="784" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1009" out_port_id="1009"/>
+		<IR id="499" name="1009" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="961" out_port_id="961"/>
+		<IR id="417" name="960/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="959" out_port_id="959"/>
+		<IR id="413" name="959" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="780" out_port_id="780"/>
+		<IR id="109" name="780" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.decoder1.1.0.weight" out_port_id="refinement_stages.1.trunk.0.decoder1.1.0.weight"/>
+		<IR id="300" name="Mul1_17897/Fused_Mul_2168121683_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1011" out_port_id="1011"/>
+		<IR id="501" name="Interpolate/1011" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="951" out_port_id="951"/>
+		<IR id="398" name="951" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1075" out_port_id="1075"/>
+		<IR id="610" name="1074/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="947" out_port_id="947"/>
+		<IR id="394" name="946/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.decoder2.0.0.weight" out_port_id="refinement_stages.1.trunk.0.decoder2.0.0.weight"/>
+		<IR id="282" name="Mul1_17861/Fused_Mul_2166921671_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.2.initial.0.weight" out_port_id="refinement_stages.2.trunk.2.initial.0.weight"/>
+		<IR id="425" name="onnx_initializer_node_refinement_stages.2.trunk.2.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="803" out_port_id="803"/>
+		<IR id="149" name="803" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.1.trunk.1.0.weight" out_port_id="refinement_stages.2.trunk.1.trunk.1.0.weight"/>
+		<IR id="419" name="Mul1_18089/Fused_Mul_2174521747_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.encoder2.0.0.weight" out_port_id="refinement_stages.3.trunk.0.encoder2.0.0.weight"/>
+		<IR id="477" name="Mul1_18173/Fused_Mul_2177321775_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="820" out_port_id="820"/>
+		<IR id="177" name="820" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1055" out_port_id="1055"/>
+		<IR id="580" name="1055" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.heatmaps.0.0.weight" out_port_id="refinement_stages.2.heatmaps.0.0.weight"/>
+		<IR id="457" name="onnx_initializer_node_refinement_stages.2.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.encoder2.0.0.weight" out_port_id="refinement_stages.4.trunk.0.encoder2.0.0.weight"/>
+		<IR id="581" name="Mul1_18341/Fused_Mul_2182921831_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1102" out_port_id="1102"/>
+		<IR id="658" name="1102" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="743" out_port_id="743"/>
+		<IR id="48" name="Add1_17406/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1054" out_port_id="1054"/>
+		<IR id="579" name="1053/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="976" out_port_id="976"/>
+		<IR id="444" name="976" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1002" out_port_id="1002"/>
+		<IR id="488" name="Interpolate/1002" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="834" out_port_id="834"/>
+		<IR id="199" name="833/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="965" out_port_id="965"/>
+		<IR id="423" name="965" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="initial_stage.trunk.2.0.weight" out_port_id="initial_stage.trunk.2.0.weight"/>
+		<IR id="140" name="Mul1_17633/Fused_Mul_2159321595_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="932" out_port_id="932"/>
+		<IR id="371" name="931/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="921" out_port_id="921"/>
+		<IR id="350" name="920/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="840" out_port_id="840"/>
+		<IR id="210" name="840" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.1.trunk.0.0.weight" out_port_id="refinement_stages.2.trunk.1.trunk.0.0.weight"/>
+		<IR id="414" name="Mul1_18077/Fused_Mul_2174121743_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="878" out_port_id="878"/>
+		<IR id="278" name="878" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="890" out_port_id="890"/>
+		<IR id="294" name="890" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.1.initial.0.weight" out_port_id="refinement_stages.1.trunk.1.initial.0.weight"/>
+		<IR id="305" name="onnx_initializer_node_refinement_stages.1.trunk.1.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="852" out_port_id="852"/>
+		<IR id="231" name="852" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.2.initial.0.weight" out_port_id="refinement_stages.4.trunk.2.initial.0.weight"/>
+		<IR id="633" name="onnx_initializer_node_refinement_stages.4.trunk.2.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="844" out_port_id="844"/>
+		<IR id="216" name="844" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="782" out_port_id="782"/>
+		<IR id="113" name="Add1_17562/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.decoder2.1.0.weight" out_port_id="refinement_stages.4.trunk.0.decoder2.1.0.weight"/>
+		<IR id="599" name="Mul1_18377/Fused_Mul_2184121843_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1104" out_port_id="1104"/>
+		<IR id="662" name="1103/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.decoder2.1.0.weight" out_port_id="refinement_stages.3.trunk.0.decoder2.1.0.weight"/>
+		<IR id="495" name="Mul1_18209/Fused_Mul_2178521787_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.3.trunk.1.0.weight" out_port_id="refinement_stages.2.trunk.3.trunk.1.0.weight"/>
+		<IR id="451" name="Mul1_18137/Fused_Mul_2176121763_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.3.initial.0.weight" out_port_id="refinement_stages.3.trunk.3.initial.0.weight"/>
+		<IR id="545" name="onnx_initializer_node_refinement_stages.3.trunk.3.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="807" out_port_id="807"/>
+		<IR id="158" name="806/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="730" out_port_id="730"/>
+		<IR id="26" name="730" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="926" out_port_id="926"/>
+		<IR id="361" name="926" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.heatmaps.0.0.weight" out_port_id="refinement_stages.3.heatmaps.0.0.weight"/>
+		<IR id="561" name="onnx_initializer_node_refinement_stages.3.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="941" out_port_id="941"/>
+		<IR id="384" name="Interpolate/941" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="720" out_port_id="720"/>
+		<IR id="9" name="720" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="843" out_port_id="843"/>
+		<IR id="215" name="843" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="919" out_port_id="919"/>
+		<IR id="346" name="919" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1018" out_port_id="1018"/>
+		<IR id="512" name="1018" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1000" out_port_id="1000"/>
+		<IR id="486" name="1000" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="907" out_port_id="907"/>
+		<IR id="325" name="907" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1057" out_port_id="1057"/>
+		<IR id="584" name="1056/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="760" out_port_id="760"/>
+		<IR id="76" name="760" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="837" out_port_id="837"/>
+		<IR id="205" name="837" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="826" out_port_id="826"/>
+		<IR id="187" name="826" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="892" out_port_id="892"/>
+		<IR id="298" name="891/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.2.trunk.0.0.weight" out_port_id="refinement_stages.2.trunk.2.trunk.0.0.weight"/>
+		<IR id="430" name="Mul1_18101/Fused_Mul_2174921751_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1090" out_port_id="1090"/>
+		<IR id="637" name="1090" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.encoder2.1.0.weight" out_port_id="refinement_stages.1.trunk.0.encoder2.1.0.weight"/>
+		<IR id="274" name="Mul1_17849/Fused_Mul_2166521667_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.encoder1.0.0.weight" out_port_id="refinement_stages.1.trunk.0.encoder1.0.0.weight"/>
+		<IR id="259" name="Mul1_17813/Fused_Mul_2165321655_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="823" out_port_id="823"/>
+		<IR id="182" name="823" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1035" out_port_id="1035"/>
+		<IR id="543" name="1035" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="903" out_port_id="903"/>
+		<IR id="318" name="902/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1028" out_port_id="1028"/>
+		<IR id="532" name="1028" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.7.3.weight" out_port_id="model.7.3.weight"/>
+		<IR id="75" name="Mul1_17477/Fused_Mul_2154121543_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="895" out_port_id="895"/>
+		<IR id="303" name="894/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="765" out_port_id="765"/>
+		<IR id="84" name="765" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="839" out_port_id="839"/>
+		<IR id="209" name="838/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1099" out_port_id="1099"/>
+		<IR id="653" name="1099" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="735" out_port_id="735"/>
+		<IR id="34" name="735" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="800" out_port_id="800"/>
+		<IR id="143" name="799/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1084" out_port_id="1084"/>
+		<IR id="626" name="1084" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="831" out_port_id="831"/>
+		<IR id="194" name="830/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="889" out_port_id="889"/>
+		<IR id="293" name="Interpolate/889" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="901" out_port_id="901"/>
+		<IR id="314" name="901" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="874" out_port_id="874"/>
+		<IR id="272" name="873/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.1.3.weight" out_port_id="model.1.3.weight"/>
+		<IR id="15" name="Mul1_17333/Fused_Mul_2149321495_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="975" out_port_id="975"/>
+		<IR id="440" name="975" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="764" out_port_id="764"/>
+		<IR id="83" name="Add1_17490/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1101" out_port_id="1101"/>
+		<IR id="657" name="1100/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1105" out_port_id="1105"/>
+		<IR id="663" name="1105" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1089" out_port_id="1089"/>
+		<IR id="636" name="1089" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="853" out_port_id="853"/>
+		<IR id="232" name="853" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.4.0.weight" out_port_id="model.4.0.weight"/>
+		<IR id="40" name="3056030563_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.encoder1.1.0.weight" out_port_id="refinement_stages.4.trunk.0.encoder1.1.0.weight"/>
+		<IR id="576" name="Mul1_18329/Fused_Mul_2182521827_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1023" out_port_id="1023"/>
+		<IR id="522" name="1023" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="726" out_port_id="726"/>
+		<IR id="19" name="726" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1019" out_port_id="1019"/>
+		<IR id="516" name="1019" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.2.trunk.0.0.weight" out_port_id="refinement_stages.3.trunk.2.trunk.0.0.weight"/>
+		<IR id="534" name="Mul1_18269/Fused_Mul_2180521807_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.3.initial.0.weight" out_port_id="refinement_stages.4.trunk.3.initial.0.weight"/>
+		<IR id="649" name="onnx_initializer_node_refinement_stages.4.trunk.3.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.3.initial.0.weight" out_port_id="refinement_stages.2.trunk.3.initial.0.weight"/>
+		<IR id="441" name="onnx_initializer_node_refinement_stages.2.trunk.3.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="925" out_port_id="925"/>
+		<IR id="357" name="925" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="933" out_port_id="933"/>
+		<IR id="372" name="933" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1098" out_port_id="1098"/>
+		<IR id="652" name="1098" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="724" out_port_id="724"/>
+		<IR id="16" name="724" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.heatmaps.1.0.weight" out_port_id="refinement_stages.0.heatmaps.1.0.weight"/>
+		<IR id="254" name="onnx_initializer_node_refinement_stages.0.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1093" out_port_id="1093"/>
+		<IR id="642" name="1093" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.heatmaps.0.0.weight" out_port_id="refinement_stages.1.heatmaps.0.0.weight"/>
+		<IR id="353" name="onnx_initializer_node_refinement_stages.1.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="771" out_port_id="771"/>
+		<IR id="94" name="771" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="904" out_port_id="904"/>
+		<IR id="319" name="904" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="814" out_port_id="814"/>
+		<IR id="169" name="814" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="957" out_port_id="957"/>
+		<IR id="408" name="957" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.heatmaps.1.0.weight" out_port_id="refinement_stages.4.heatmaps.1.0.weight"/>
+		<IR id="670" name="onnx_initializer_node_refinement_stages.4.heatmaps.1.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="897" out_port_id="897"/>
+		<IR id="308" name="897" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.encoder2.0.0.weight" out_port_id="refinement_stages.2.trunk.0.encoder2.0.0.weight"/>
+		<IR id="373" name="Mul1_18005/Fused_Mul_2171721719_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.3.trunk.1.0.weight" out_port_id="refinement_stages.1.trunk.3.trunk.1.0.weight"/>
+		<IR id="347" name="Mul1_17969/Fused_Mul_2170521707_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.heatmaps.0.0.weight" out_port_id="refinement_stages.4.heatmaps.0.0.weight"/>
+		<IR id="665" name="onnx_initializer_node_refinement_stages.4.heatmaps.0.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="854" out_port_id="854"/>
+		<IR id="236" name="854" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="742" out_port_id="742"/>
+		<IR id="46" name="742" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="759" out_port_id="759"/>
+		<IR id="74" name="759" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="762" out_port_id="762"/>
+		<IR id="79" name="762" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="733" out_port_id="733"/>
+		<IR id="31" name="733" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.decoder2.0.0.weight" out_port_id="refinement_stages.2.trunk.0.decoder2.0.0.weight"/>
+		<IR id="386" name="Mul1_18029/Fused_Mul_2172521727_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="795" out_port_id="795"/>
+		<IR id="134" name="795" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="848" out_port_id="848"/>
+		<IR id="225" name="847/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="748" out_port_id="748"/>
+		<IR id="56" name="748" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="958" out_port_id="958"/>
+		<IR id="412" name="958" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1109" out_port_id="0"/>
+		<IR id="673" name="1109" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1046" out_port_id="1046"/>
+		<IR id="564" name="1046" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.1.trunk.0.0.weight" out_port_id="refinement_stages.0.trunk.1.trunk.0.0.weight"/>
+		<IR id="206" name="Mul1_17741/Fused_Mul_2162921631_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="913" out_port_id="913"/>
+		<IR id="335" name="913" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.1.trunk.0.0.weight" out_port_id="refinement_stages.1.trunk.1.trunk.0.0.weight"/>
+		<IR id="310" name="Mul1_17909/Fused_Mul_2168521687_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="819" out_port_id="819"/>
+		<IR id="176" name="Interpolate/819" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="729" out_port_id="729"/>
+		<IR id="24" name="729" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="855" out_port_id="855"/>
+		<IR id="237" name="855" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="739" out_port_id="739"/>
+		<IR id="41" name="739" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="954" out_port_id="954"/>
+		<IR id="403" name="954" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="997" out_port_id="997"/>
+		<IR id="481" name="997" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.encoder1.1.0.weight" out_port_id="refinement_stages.3.trunk.0.encoder1.1.0.weight"/>
+		<IR id="472" name="Mul1_18161/Fused_Mul_2176921771_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="719" out_port_id="719"/>
+		<IR id="8" name="Add1_/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.decoder2.0.0.weight" out_port_id="refinement_stages.3.trunk.0.decoder2.0.0.weight"/>
+		<IR id="490" name="Mul1_18197/Fused_Mul_2178121783_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="868" out_port_id="868"/>
+		<IR id="262" name="867/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="741" out_port_id="741"/>
+		<IR id="44" name="741" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="996" out_port_id="996"/>
+		<IR id="480" name="995/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="775" out_port_id="775"/>
+		<IR id="101" name="775" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1017" out_port_id="1017"/>
+		<IR id="511" name="1016/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="805" out_port_id="805"/>
+		<IR id="154" name="805" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.encoder1.0.0.weight" out_port_id="refinement_stages.4.trunk.0.encoder1.0.0.weight"/>
+		<IR id="571" name="Mul1_18317/Fused_Mul_2182121823_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="791" out_port_id="791"/>
+		<IR id="128" name="790/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.decoder1.0.0.weight" out_port_id="refinement_stages.2.trunk.0.decoder1.0.0.weight"/>
+		<IR id="399" name="Mul1_18053/Fused_Mul_2173321735_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.8.0.weight" out_port_id="model.8.0.weight"/>
+		<IR id="80" name="3057630579_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="738" out_port_id="738"/>
+		<IR id="39" name="738" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="896" out_port_id="896"/>
+		<IR id="304" name="896" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.decoder2.0.0.weight" out_port_id="refinement_stages.0.trunk.0.decoder2.0.0.weight"/>
+		<IR id="178" name="Mul1_17693/Fused_Mul_2161321615_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.1.trunk.0.0.weight" out_port_id="refinement_stages.3.trunk.1.trunk.0.0.weight"/>
+		<IR id="518" name="Mul1_18245/Fused_Mul_2179721799_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="918" out_port_id="918"/>
+		<IR id="345" name="917/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.3.0.weight" out_port_id="model.3.0.weight"/>
+		<IR id="30" name="3054830551_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1038" out_port_id="1038"/>
+		<IR id="549" name="1038" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="927" out_port_id="927"/>
+		<IR id="362" name="927" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.encoder1.0.0.weight" out_port_id="refinement_stages.3.trunk.0.encoder1.0.0.weight"/>
+		<IR id="467" name="Mul1_18149/Fused_Mul_2176521767_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1014" out_port_id="1014"/>
+		<IR id="506" name="1013/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1083" out_port_id="1083"/>
+		<IR id="625" name="1082/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="794" out_port_id="794"/>
+		<IR id="133" name="793/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="922" out_port_id="922"/>
+		<IR id="351" name="922" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.9.3.weight" out_port_id="model.9.3.weight"/>
+		<IR id="95" name="Mul1_17525/Fused_Mul_2155721559_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="788" out_port_id="788"/>
+		<IR id="123" name="787/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.encoder1.1.0.weight" out_port_id="refinement_stages.1.trunk.0.encoder1.1.0.weight"/>
+		<IR id="264" name="Mul1_17825/Fused_Mul_2165721659_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.2.trunk.1.0.weight" out_port_id="refinement_stages.0.trunk.2.trunk.1.0.weight"/>
+		<IR id="227" name="Mul1_17777/Fused_Mul_2164121643_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="output" out_port_id="output"/>
+		<IR id="153" name="output" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="774" out_port_id="774"/>
+		<IR id="99" name="774" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="829" out_port_id="829"/>
+		<IR id="190" name="829" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.2.3.weight" out_port_id="model.2.3.weight"/>
+		<IR id="25" name="Mul1_17357/Fused_Mul_2150121503_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="964" out_port_id="964"/>
+		<IR id="422" name="963/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="773" out_port_id="773"/>
+		<IR id="98" name="Add1_17526/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="929" out_port_id="929"/>
+		<IR id="366" name="928/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.3.trunk.1.0.weight" out_port_id="refinement_stages.3.trunk.3.trunk.1.0.weight"/>
+		<IR id="555" name="Mul1_18305/Fused_Mul_2181721819_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="737" out_port_id="737"/>
+		<IR id="38" name="Add1_17382/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.2.trunk.1.0.weight" out_port_id="refinement_stages.4.trunk.2.trunk.1.0.weight"/>
+		<IR id="643" name="Mul1_18449/Fused_Mul_2186521867_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="781" out_port_id="781"/>
+		<IR id="111" name="781" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1029" out_port_id="1029"/>
+		<IR id="533" name="1029" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="887" out_port_id="887"/>
+		<IR id="291" name="887" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.0.encoder2.1.0.weight" out_port_id="refinement_stages.4.trunk.0.encoder2.1.0.weight"/>
+		<IR id="586" name="Mul1_18353/Fused_Mul_2183321835_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="942" out_port_id="942"/>
+		<IR id="385" name="942" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="999" out_port_id="999"/>
+		<IR id="485" name="998/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="886" out_port_id="886"/>
+		<IR id="290" name="885/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="cpm.0.0.weight" out_port_id="cpm.0.0.weight"/>
+		<IR id="120" name="Mul1_17585/Fused_Mul_2157721579_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="832" out_port_id="832"/>
+		<IR id="195" name="832" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.4.trunk.3.trunk.0.0.weight" out_port_id="refinement_stages.4.trunk.3.trunk.0.0.weight"/>
+		<IR id="654" name="Mul1_18461/Fused_Mul_2186921871_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="817" out_port_id="817"/>
+		<IR id="174" name="817" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="914" out_port_id="914"/>
+		<IR id="336" name="914" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="model.3.3.weight" out_port_id="model.3.3.weight"/>
+		<IR id="35" name="Mul1_17381/Fused_Mul_2150921511_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1003" out_port_id="1003"/>
+		<IR id="489" name="1003" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.encoder2.0.0.weight" out_port_id="refinement_stages.0.trunk.0.encoder2.0.0.weight"/>
+		<IR id="165" name="Mul1_17669/Fused_Mul_2160521607_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="851" out_port_id="851"/>
+		<IR id="230" name="850/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="872" out_port_id="872"/>
+		<IR id="268" name="872" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="909" out_port_id="909"/>
+		<IR id="329" name="908/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="722" out_port_id="722"/>
+		<IR id="13" name="Add1_17322/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.2.trunk.1.0.weight" out_port_id="refinement_stages.2.trunk.2.trunk.1.0.weight"/>
+		<IR id="435" name="Mul1_18113/Fused_Mul_2175321755_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="857" out_port_id="857"/>
+		<IR id="241" name="856/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="977" out_port_id="977"/>
+		<IR id="445" name="977" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="data" out_port_id="data"/>
+		<IR id="4" name="Add_/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="initial_stage.trunk.0.0.weight" out_port_id="initial_stage.trunk.0.0.weight"/>
+		<IR id="130" name="Mul1_17609/Fused_Mul_2158521587_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="798" out_port_id="798"/>
+		<IR id="139" name="798" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="732" out_port_id="732"/>
+		<IR id="29" name="732" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.decoder2.1.0.weight" out_port_id="refinement_stages.0.trunk.0.decoder2.1.0.weight"/>
+		<IR id="183" name="Mul1_17705/Fused_Mul_2161721619_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="883" out_port_id="883"/>
+		<IR id="285" name="882/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="802" out_port_id="802"/>
+		<IR id="148" name="802" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1078" out_port_id="1078"/>
+		<IR id="615" name="1077/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="754" out_port_id="754"/>
+		<IR id="66" name="754" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="initial_stage.trunk.1.0.weight" out_port_id="initial_stage.trunk.1.0.weight"/>
+		<IR id="135" name="Mul1_17621/Fused_Mul_2158921591_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.encoder1.0.0.weight" out_port_id="refinement_stages.0.trunk.0.encoder1.0.0.weight"/>
+		<IR id="155" name="Mul1_17645/Fused_Mul_2159721599_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="731" out_port_id="731"/>
+		<IR id="28" name="Add1_17358/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="746" out_port_id="746"/>
+		<IR id="53" name="Add1_17418/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="749" out_port_id="749"/>
+		<IR id="58" name="Add1_17430/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="912" out_port_id="912"/>
+		<IR id="334" name="911/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.encoder1.1.0.weight" out_port_id="refinement_stages.0.trunk.0.encoder1.1.0.weight"/>
+		<IR id="160" name="Mul1_17657/Fused_Mul_2160121603_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="968" out_port_id="968"/>
+		<IR id="429" name="968" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="768" out_port_id="768"/>
+		<IR id="89" name="768" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="993" out_port_id="993"/>
+		<IR id="475" name="992/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="811" out_port_id="811"/>
+		<IR id="164" name="811" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1069" out_port_id="1069"/>
+		<IR id="602" name="1068/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="916" out_port_id="916"/>
+		<IR id="341" name="916" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.2.trunk.1.0.weight" out_port_id="refinement_stages.3.trunk.2.trunk.1.0.weight"/>
+		<IR id="539" name="Mul1_18281/Fused_Mul_2180921811_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1008" out_port_id="1008"/>
+		<IR id="498" name="1007/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.0.trunk.0.decoder1.1.0.weight" out_port_id="refinement_stages.0.trunk.0.decoder1.1.0.weight"/>
+		<IR id="196" name="Mul1_17729/Fused_Mul_2162521627_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.5.3.weight" out_port_id="model.5.3.weight"/>
+		<IR id="55" name="Mul1_17429/Fused_Mul_2152521527_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.10.3.weight" out_port_id="model.10.3.weight"/>
+		<IR id="105" name="Mul1_17549/Fused_Mul_2156521567_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.1.initial.0.weight" out_port_id="refinement_stages.3.trunk.1.initial.0.weight"/>
+		<IR id="513" name="onnx_initializer_node_refinement_stages.3.trunk.1.initial.0.weight/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.1.0.weight" out_port_id="model.1.0.weight"/>
+		<IR id="10" name="3056430567_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="model.4.3.weight" out_port_id="model.4.3.weight"/>
+		<IR id="45" name="Mul1_17405/Fused_Mul_2151721519_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="776" out_port_id="776"/>
+		<IR id="103" name="Add1_17538/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="865" out_port_id="865"/>
+		<IR id="257" name="865" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1006" out_port_id="1006"/>
+		<IR id="494" name="1006" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="898" out_port_id="898"/>
+		<IR id="309" name="898" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="944" out_port_id="944"/>
+		<IR id="389" name="943/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1058" out_port_id="1058"/>
+		<IR id="585" name="1058" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="1040" out_port_id="1040"/>
+		<IR id="553" name="1039/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="930" out_port_id="930"/>
+		<IR id="367" name="930" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="935" out_port_id="935"/>
+		<IR id="376" name="934/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="1012" out_port_id="1012"/>
+		<IR id="502" name="1012" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="761" out_port_id="761"/>
+		<IR id="78" name="Add1_17478/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.2.trunk.0.encoder2.1.0.weight" out_port_id="refinement_stages.2.trunk.0.encoder2.1.0.weight"/>
+		<IR id="378" name="Mul1_18017/Fused_Mul_2172121723_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.1.trunk.0.encoder2.0.0.weight" out_port_id="refinement_stages.1.trunk.0.encoder2.0.0.weight"/>
+		<IR id="269" name="Mul1_17837/Fused_Mul_2166121663_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="755" out_port_id="755"/>
+		<IR id="68" name="Add1_17454/Fused_Add_" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="863" out_port_id="863"/>
+		<IR id="252" name="863" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="refinement_stages.3.trunk.0.encoder2.1.0.weight" out_port_id="refinement_stages.3.trunk.0.encoder2.1.0.weight"/>
+		<IR id="482" name="Mul1_18185/Fused_Mul_2177721779_const" out_port_id="1"/>
+	</map>
+</mapping>

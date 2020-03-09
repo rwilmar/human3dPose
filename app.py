@@ -10,7 +10,7 @@ from image_handlers import preprocessing, create_output_image
 
 _MODEL_BOXES="./models/person-detection-retail-0013.xml" # more available with different inputs !!!
 _MODEL_MULTIPOSE="./models/human-pose-estimation-0001.xml"
-_MODEL_SINGLEPOSE="./models/000.xml" 
+_MODEL_SINGLEPOSE="./models/single-human-pose-estimation-0001.xml" 
 
 def get_args():
     '''
@@ -49,12 +49,15 @@ def get_model(model_type):
         return _MODEL_MULTIPOSE
     elif model_type == "PERSON_DET":
         return _MODEL_BOXES
+    elif model_type == "SINGLEPOSE":
+        return _MODEL_SINGLEPOSE
     else:
         return _MODEL_MULTIPOSE
 
 def perform_inference(args):
     '''
     Performs inference #1 on an input image, given a model.
+    only working on images temp.... video irl to implement
     '''
     # Create a Network for using the Inference Engine
     inference_network = Network()
@@ -64,20 +67,14 @@ def perform_inference(args):
     # Read the input image
     image = cv2.imread(args.i)
 
-    ### TODO: Preprocess the input image
     preprocessed_image = preprocessing(image, h, w)
-    #preprocessed_image = None
-
+    
     # Perform synchronous inference on the image
     inference_network.sync_inference(preprocessed_image)
 
     # Obtain the output of the inference request
     output = inference_network.extract_output()
 
-    ### TODO: Handle the output of the network, based on args.t
-    ### Note: This will require using `handle_output` to get the correct
-    ###       function, and then feeding the output to that function.
-    #processed_output = None
     processed_output = handle_output(args.t)(output,image.shape)
 
     # Create an output image based on network

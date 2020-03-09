@@ -67,6 +67,20 @@ def create_output_image(model_type, image, output):
         # Combine with original image
         image = image + pose_mask
         return image
+
+    elif model_type == "SINGLEPOSE":
+        print (output.shape)
+        # Get only pose detections above 0.5 confidence, set to 255
+        for c in range(len(output)):
+            output[c] = np.where(output[c]>0.6, (output[c]-0.6)*250, 0)
+        # Sum along the "class" axis
+        output = np.sum(output, axis=0)
+        # Get semantic mask
+        pose_mask = get_mask(output)
+        # Combine with original image
+        image = image + pose_mask
+        return image
+     
     elif model_type == "TEXT":
         # Get only text detections above 0.5 confidence, set to 255
         output = np.where(output[1]>0.5, 255, 0)

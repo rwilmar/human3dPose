@@ -110,7 +110,9 @@ def create_output_image(model_type, image, output):
         nPers, perVector = output.shape
         print("modelo de personas: ", nPers)
         
-        return draw_boxes(image, output, 0.3, w, h)
+        return draw_boxes(image, output, 0.4, w, h)
     else:
         print("Unknown model type, unable to create output image.")
         return image
+
+        

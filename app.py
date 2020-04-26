@@ -8,6 +8,9 @@ from image_handlers import preprocessing, create_output_image
 
 #source /opt/intel/openvino/bin/setupvars.sh            ##remember##
 
+#### TODO: camera calibration app: rotation matrices for callibration + points
+#### TODO: stereovision APP
+
 _MODEL_BOXES="./models/person-detection-retail-0013.xml" # more available with different inputs !!!
 _MODEL_MULTIPOSE="./models/human-pose-estimation-0001.xml"
 _MODEL_SINGLEPOSE="./models/single-human-pose-estimation-0001.xml" 

@@ -1,0 +1,11 @@
+# List of ignored files
+
+#Models are ignored to sync due to size restrictions,
+#those can be found in intel's website for OpenVino
+
+/models/human-pose-estimation-0001.bin
+/models/person-detection-asl-0001.bin
+/models/person-detection-retail-0002.bin
+/models/person-detection-retail-0013.bin
+/models/single-human-pose-estimation-0001.bin
+/models/single-human-pose-estimation-0001/models

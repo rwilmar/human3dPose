@@ -78,7 +78,9 @@ def create_output_image(model_type, image, output):
         # Get semantic mask
         pose_mask = get_mask(output)
         # Combine with original image
-        image = image + pose_mask
+        imageBk = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        image = cv2.cvtColor(imageBk, cv2.COLOR_GRAY2BGR)
+        image = image.astype(int) + pose_mask.astype(int)
         return image
      
     elif model_type == "TEXT":

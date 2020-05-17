@@ -9,3 +9,6 @@
 /models/person-detection-retail-0013.bin
 /models/single-human-pose-estimation-0001.bin
 /models/single-human-pose-estimation-0001/models
+
+#videos for testing
+/videos

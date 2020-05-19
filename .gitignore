@@ -12,3 +12,6 @@
 
 #videos for testing
 /videos
+
+#Jupyter tracking
+/.ipync_checkpoints

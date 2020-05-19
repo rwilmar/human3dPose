@@ -56,7 +56,7 @@ class Network:
         '''
         Makes a synchronous inference request, given an input image.
         '''
-        print ("input real shape: ", image.shape)
+        #print ("input real shape: ", image.shape)
         self.exec_network.infer({self.input_blob: image})
         return
 

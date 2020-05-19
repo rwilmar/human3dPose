@@ -59,7 +59,7 @@ def create_output_image(model_type, image, output):
         output = output[:-1]
         # Get only pose detections above 0.5 confidence, set to 255
         for c in range(len(output)):
-            output[c] = np.where(output[c]>0.4, 255, 0)
+            output[c] = np.where(output[c]>0.4, 250, 0)
         # Sum along the "class" axis
         output = np.sum(output, axis=0)
         # Get semantic mask
@@ -69,18 +69,37 @@ def create_output_image(model_type, image, output):
         return image
 
     elif model_type == "SINGLEPOSE":
-        print (output.shape)
+        #print (output.shape)
         # Get only pose detections above 0.5 confidence, set to 255
         for c in range(len(output)):
-            output[c] = np.where(output[c]>0.6, (output[c]-0.6)*250, 0)
+            output[c] = np.where(output[c]>0.4, (output[c]-0.4)*100, 0)
         # Sum along the "class" axis
         output = np.sum(output, axis=0)
         # Get semantic mask
         pose_mask = get_mask(output)
         # Combine with original image
-        image = image + pose_mask
+        imageBk = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        image = cv2.cvtColor(imageBk, cv2.COLOR_GRAY2BGR)
+        #image = image.astype(int) pose_mask.astype(int)
         return image
-     
+
+    elif model_type == "MULTIPOSE":
+        # Remove final part of output not used for heatmaps
+        output = output[:-1]
+
+        # Get only pose detections above 0.5 confidence, set to 255
+        for c in range(len(output)):
+            output[c] = np.where(output[c]>0.4, (output[c]-0.4), 0)
+        # Sum along the "class" axis
+        output = np.sum(output, axis=0)
+        # Get semantic mask
+        pose_mask = get_mask(output)
+        # Combine with original image
+        imageBk = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        image = cv2.cvtColor(imageBk, cv2.COLOR_GRAY2BGR)
+        #image = image.astype(int) pose_mask.astype(int)
+        return image
+
     elif model_type == "TEXT":
         # Get only text detections above 0.5 confidence, set to 255
         output = np.where(output[1]>0.5, 255, 0)

@@ -1,0 +1,20 @@
+;coord2d;color;name
+0;(639, 123);#7570b3;head
+1;(617, 191);#7570b3;neck
+2;(572, 191);#d95f02;right_shoulder
+3;(527, 236);#d95f02;right_elbow
+4;(527, 191);#d95f02;right_wrist
+5;(662, 191);#1b9e77;left_shoulder
+6;(729, 258);#1b9e77;left_elbow
+7;(729, 191);#1b9e77;left_wrist
+8;(595, 348);#66a61e;right_hip
+9;(595, 461);#66a61e;right_knee
+10;(595, 573);#66a61e;right_foot
+11;(662, 348);#e7298a;left_hip
+12;(640, 461);#e7298a;left_knee
+13;(640, 573);#e7298a;left_foot
+14;(617, 123);#d95f02;right_eye
+15;(639, 123);#1b9e77;left_eye
+16;(595, 124);#d95f02;right_ear
+17;(640, 145);#1b9e77;left_ear
+19;(628, 348);#7570b3;pelvis

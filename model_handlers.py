@@ -5,8 +5,8 @@ def handle_singlepose(output, input_shape):
     print(output.keys())
     poses = output['1109']
     [b,c,h,w]=poses.shape
-    print(poses.shape)
-    print(np.amax(poses[0][1]))
+    #print(poses.shape)
+    #print(np.amax(poses[0][1]))
     out_heatmap = np.zeros([c, input_shape[0], input_shape[1]])
     for h in range(len(poses[0])):
         out_heatmap[h] = cv2.resize(poses[0][h], input_shape[0:2][::-1])
@@ -20,7 +20,7 @@ def handle_pose(output, input_shape):
     # TODO 1: Extract only the second blob output (keypoint heatmaps)
     #[1, 38, 32, 57] and [1, 19, 32, 57] 
     poses = output['Mconv7_stage2_L2']
-    print(poses.shape)
+    #print(poses.shape)
     [b,c,h,w]=poses.shape
     # TODO 2: Resize the heatmap back to the size of the input
 
@@ -55,5 +55,7 @@ def handle_output(model_type):
         return handle_personDet
     elif model_type == "SINGLEPOSE":
         return handle_singlepose
+    elif model_type == "MULTIPOSE":
+        return handle_pose
     else:
         return None

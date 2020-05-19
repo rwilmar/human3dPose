@@ -13,3 +13,30 @@ For rendering proporses, humanoid.urdf contains an URDF model that could rewpres
 ![Image not rendered](images/URDF1.png)
 
 The scripts joining the read 3d position and rendering are work in progress...
+
+## Setting Up
+Packages needed to run the samples are:
+- Python 3.5+
+- OpenVino 2020.0 (works on OpenVino 2019)
+- OpenCV 4.0+
+- Bokeh Server
+
+
+## Running
+To run the examples jypiter notebooks can be used,
+
+for the Bokeh app directly from a Bokeh server, navigate to the parent directory
+[`examples/app`](https://github.com/bokeh/bokeh/tree/master/examples/app),
+and execute the command
+
+    bokeh serve --show dash
+
+## Licences
+
+This example uses vendored code from the following projects:
+
+* https://fontawesome.com/license
+* https://getbootstrap.com/docs/3.3/getting-started/
+* https://github.com/puikinsh/gentelella/blob/master/LICENSE.txt
+
+Other packages and licences related are under testing 

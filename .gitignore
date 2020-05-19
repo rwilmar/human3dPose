@@ -13,5 +13,6 @@
 #videos for testing
 /videos
 
-#Jupyter tracking
+#Jupyter - Python cahche, tracking
 /.ipynb_checkpoints
+/__pycache__

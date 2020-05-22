@@ -1,0 +1,129 @@
+{% extends base %}
+{% block preamble %}
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Custom Style -->
+  <link href="dashboard/static/css/custom.min.css" rel="stylesheet">
+  <style>
+    .bg-pg {background-color: #c2b9b0; color: #7e685a}
+    .bg-hd {background-color: #e7717d; color: #fff5e7; padding-top: 20px;}
+    .bg-t1 {background-color: #afd275;}
+    .bg-t2 {background-color: #7e685a;}
+  </style>
+
+{% endblock %}
+
+{% block contents %}
+
+<div class="container body bg-pg">
+  <div class="container">
+    <div class="page-header text-center bg-hd">
+      <h1><i class="fa fa-heartbeat"></i> Análisis de Movimientos</h1>
+      <p class="lead">Sistema de análisis de movimientos por detección y traza de articulaciones</p>
+    </div>
+  </div>
+
+    <!-- page content -->
+    <div class="right_col" role="main">
+      <!-- top tiles -->
+      <div class="row tile_count">
+        <div class="row col-md-6 col-sm-6 col-xs-12 tile_stats_count">
+          <!--span class="count_top"><i class="fa fa-book"></i> Cargar Estudio</span-->
+          {{ embed(roots.studies) }}
+        </div>
+
+        <!-- /top stats -->
+        <!-- ['stats_names'] = ['long', 'secs', 'movement', 'calories'] -->
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <div class="count text-center">{{ embed(roots.kpi_long) }}</div>
+          <span class="count_bottom"><i class="fa fa-{{roots.kpi_long.tags[0]}}"></i> {{ roots.kpi_long.tags[1] }}</span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <div class="count text-center">{{ embed(roots.kpi_mov) }}</div>
+          <span class="count_top"><i class="fa fa-{{roots.kpi_mov.tags[0]}}"></i> {{ roots.kpi_mov.tags[1] }}</span>
+        </div>
+        
+        <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+          <div class="count text-center">{{ embed(roots.kpi_cal) }}</div>
+          <span class="count_top"><i class="fa fa-{{roots.kpi_cal.tags[0]}}"></i> {{ roots.kpi_cal.tags[1] }}</span>
+        </div>
+
+
+      </div>
+      <!-- /top tiles -->
+
+      <div class="row">
+
+          <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="x_panel tile fixed_height_390 overflow_hidden">
+              <div class="row x_title">
+                <div class="col-md-6">
+                  <h3>Actividad Total <small>serie temporal</small></h3>
+                </div>
+              </div>
+              {{ embed(roots.line) }}
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="x_panel tile fixed_height_390 overflow_hidden">
+              <div class="x_title">
+                <h2>Network Graphs</h2>
+                <div class="clearfix"></div>
+              </div>
+              {{ embed(roots.net1) }}
+            </div>
+          </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <div class="x_title">
+              <h2>By Region</h2>
+              <div class="clearfix"></div>
+            </div>
+            {{ embed(roots.region) }}
+          </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <div class="x_title">
+              <h2>By Platform</h2>
+              <div class="clearfix"></div>
+            </div>
+            {{ embed(roots.platform) }}
+          </div>
+        </div>
+
+
+        <div class="col-md-4 col-sm-4 col-xs-12">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <div class="x_title">
+              <h2>Details</h2>
+              <div class="clearfix"></div>
+            </div>
+            {{ embed(roots.table) }}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- /page content -->
+
+{% endblock %}

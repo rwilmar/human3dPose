@@ -26,10 +26,10 @@ Packages needed to run the samples are:
 To run the examples jypiter notebooks can be used,
 
 for the Bokeh app directly from a Bokeh server, navigate to the parent directory
-[`examples/app`](https://github.com/bokeh/bokeh/tree/master/examples/app),
+[`Human 3dPose app`](https://github.com/rwilmar/human3dPose.git),
 and execute the command
 
-    bokeh serve --show dash
+    bokeh serve --show dashboard
 
 ## Licences
 

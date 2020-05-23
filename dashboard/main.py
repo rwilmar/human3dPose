@@ -1,5 +1,6 @@
 import math 
 import glob
+import shutil
 import numpy as np
 import pandas as pd
 
@@ -10,6 +11,7 @@ from bokeh.models import (Button, ColumnDataSource, DataTable, Div, GraphRendere
                         StringFormatter, TableColumn, TextInput  )
 from bokeh.palettes import Spectral11, Spectral8
 from bokeh.plotting import figure
+from bokeh.models.callbacks import CustomJS
 
 
 from collections import Counter
@@ -19,6 +21,11 @@ from bokeh.transform import cumsum
 
 StudiesPath="../videos/"
 VideosPath="../videos/"
+
+VideoSrc=""
+VideoOut=""
+VideoTmp="dashboard/static/tmpVideo.mp4"
+
 
 # Read list of files in default path
 def readFilesList(filesType):
@@ -48,7 +55,7 @@ def cleanStrCoords(coords):
 # Imports csv study
 def importStudy(study_csv):
     videoCoords=pd.read_csv(study_csv,sep=";",index_col=0) 
-    for col in mimo.columns:
+    for col in videoCoords.columns:
         videoCoords[col]=videoCoords[col].apply(cleanStrCoords)
     return videoCoords
 
@@ -77,28 +84,53 @@ class statKpi:
         self.value=value
         self.render.text=str(round(value,2))
 
-# Stats
 
+# Opening Menus
+curdoc().title = "Dashboard Analisis Movimientos"
+def update_me():
+    outputStatus.text = selectVideo.value + ".csv Saved"
+    kpiLongVal.setKpi(73)
+    kpiCaloriesVal.setKpi(340)
+    kpiMovementVal.setKpi(1.34)
+def openStudioCbk(attr, old, new):
+    if attr=='value':
+        outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
+def openVideoCbk(attr,old,new):
+    buttonSave.disabled = False
+    outputStatus.text = "Opening Video " + selectVideo.value+".mp4"
+    VideoSrc=VideosPath+selectVideo.value+'.mp4'
+    workingFile.text=selectVideo.value+'.mp4'
+    VideoOut=VideosPath+selectVideo.value+'_out.mp4'
+    VideoTmp = './dashboard/static/'+selectVideo.value+'.mp4'
+    shutil.copyfile(VideoSrc, VideoTmp)
+
+buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
+outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
+selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
+selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
+#callbacks linking
+buttonSave.on_click(update_me)
+selectStudy.on_change('value', openStudioCbk)
+selectVideo.on_change('value', openVideoCbk)
+
+# create a layout for opening menus
+layoutOpening = row(selectStudy, selectVideo, column(outputStatus, buttonSave, width=120), 
+        sizing_mode="scale_width", name="studies")
+# add the layout to curdoc
+curdoc().add_root(layoutOpening)
+# End Opening Menus
+
+
+# Stats
 kpiLongVal=statKpi('kpi_long', 'clock-o', 'Duración(frames)')
 kpiMovementVal=statKpi('kpi_mov', 'child', 'Movim-x (m)')
 kpiCaloriesVal=statKpi('kpi_cal', 'heart-o', 'Total Calorias')
-
 curdoc().add_root(kpiLongVal.render)
 curdoc().add_root(kpiMovementVal.render)
 curdoc().add_root(kpiCaloriesVal.render)
 
-curdoc().title = "Dashboard Analisis Movimientos"
-curdoc().template_variables['stats_names'] = ['long', 'secs', 'movement', 'calories']
-statsDict={
-    'long'      : {'icon': 'play-circle-o', 'value': 11200, 'change':  4   , 'label': 'Duración (frames)'},
-    'secs'      : {'icon': 'clock-o',       'value': 350,   'change':  0 , 'label': 'Tiempo (segs)'},
-    'movement'  : {'icon': 'child',         'value': 5.6,   'change': -2.3 , 'label': 'Movim-x (m)'},
-    'calories'  : {'icon': 'heart-o',       'value': 27300, 'change':  0.5 , 'label': 'Total Calorias'},
-}
-curdoc().template_variables['stats'] = statsDict
 
 # Timeseries
-
 dates = np.array(AAPL['date'], dtype=np.datetime64)
 source = ColumnDataSource(data=dict(date=dates, close=AAPL['adj_close']))
 
@@ -127,8 +159,32 @@ select.grid.grid_line_color="white"
 select.x_range.range_padding = 0.01
 
 layout = column(p, select, sizing_mode="scale_width", name="line")
-
 curdoc().add_root(layout)
+
+
+
+# networkx
+N = 8
+node_indices = list(range(N))
+plot = figure(x_range=(-1.1,1.1), y_range=(-1.1,1.1), tools='', toolbar_location=None,
+                plot_height=410, sizing_mode="scale_both", name="net1")
+graph = GraphRenderer()
+graph.node_renderer.data_source.add(node_indices, 'index')
+graph.node_renderer.data_source.add(Spectral8, 'color')
+#graph.node_renderer.glyph = Oval(height=0.1, width=0.2, fill_color='color')
+graph.edge_renderer.data_source.data = dict(
+    start=[0]*N,
+    end=node_indices)
+### start of layout code
+circ = [i*2*math.pi/8 for i in node_indices]
+x = [math.cos(i) for i in circ]
+y = [math.sin(i) for i in circ]
+graph_layout = dict(zip(node_indices, zip(x, y)))
+graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
+plot.renderers.append(graph)
+
+curdoc().add_root(plot)
+
 
 # Donut chart
 
@@ -171,6 +227,20 @@ platform.hbar(left=0, right=values, y=plats, height=0.8)
 
 curdoc().add_root(platform)
 
+# Bar chart 2
+
+data1 = ("Mmm3", "Cosa2", "Nooo", "Para eso", "Claro")
+values1 = (105, 202, 13, 68, 45)
+platform1 = figure(plot_height=350, toolbar_location=None, outline_line_color=None, sizing_mode="scale_both", 
+        name="graph2x", y_range=list(reversed(data1)), x_axis_location="above")
+platform1.x_range.start = 0
+platform1.ygrid.grid_line_color = None
+platform1.axis.minor_tick_line_color = None
+platform1.outline_line_color = None
+
+platform1.hbar(left=0, right=values1, y=data1, height=0.8)
+
+curdoc().add_root(platform1)
 
 # Table
 
@@ -187,59 +257,29 @@ table = DataTable(source=source, columns=columns, height=210, width=330, name="t
 curdoc().add_root(table)
 
 
-# networkx
-
-N = 8
-node_indices = list(range(N))
-plot = figure(x_range=(-1.1,1.1), y_range=(-1.1,1.1), tools='', toolbar_location=None,
-                plot_height=410, sizing_mode="scale_both", name="net1")
-graph = GraphRenderer()
-graph.node_renderer.data_source.add(node_indices, 'index')
-graph.node_renderer.data_source.add(Spectral8, 'color')
-#graph.node_renderer.glyph = Oval(height=0.1, width=0.2, fill_color='color')
-graph.edge_renderer.data_source.data = dict(
-    start=[0]*N,
-    end=node_indices)
-### start of layout code
-circ = [i*2*math.pi/8 for i in node_indices]
-x = [math.cos(i) for i in circ]
-y = [math.sin(i) for i in circ]
-graph_layout = dict(zip(node_indices, zip(x, y)))
-graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
-plot.renderers.append(graph)
-
-curdoc().add_root(plot)
 
 
-# studies selection
-#input = TextInput(value="BokehStudio")
-#Div(text=".", width=100)
 
-buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
-outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
-selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
-selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
-# add a callback to a widget
-def update_me():
-    outputStatus.text = selectVideo.value + ".csv Saved"
-    kpiLongVal.setKpi(73)
-    kpiCaloriesVal.setKpi(340)
-    kpiMovementVal.setKpi(1.34)
-def openStudioCbk(attr, old, new):
-    if attr=='value':
-        outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
-def openVideoCbk(attr,old,new):
-    buttonSave.disabled = False
-    outputStatus.text = "Opening Video " + selectVideo.value+".mp4"
-buttonSave.on_click(update_me)
-selectStudy.on_change('value', openStudioCbk)
-selectVideo.on_change('value', openVideoCbk)
+workingFile=Div(text="", width=100, name="workingFile", id="workingFile")
+workingFile.tags=['./dashboard/static/']
+curdoc().add_root(workingFile)
 
-# create a layout for everything
-layout1 = row(selectStudy, selectVideo, column(outputStatus, buttonSave, width=120), 
-        sizing_mode="scale_width", name="studies")
-# add the layout to curdoc
-curdoc().add_root(layout1)
-# Setup
+callback1 = CustomJS(args=dict(txtCtrl=workingFile), code="""
+var video = document.getElementById('videoplayer');
+video.src = txtCtrl.tags[0]+txtCtrl.text;
+video.play();
+// models passed as args are automagically available
+""")
+buttonUpdVideo = Button(label="⟳", name="btn_updvideo", button_type="success", 
+    width=50, height=31, css_classes=['text-right'])
+buttonUpdVideo.js_on_click(callback1)
+
+curdoc().add_root(buttonUpdVideo)
+
+
+
+
+
+
 
 

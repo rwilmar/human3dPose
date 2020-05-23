@@ -12,6 +12,8 @@
     .bg-hd {background-color: #e7717d; color: #fff5e7; padding-top: 20px;}
     .bg-t1 {background-color: #afd275;}
     .bg-t2 {background-color: #7e685a;}
+    .btn-left {float: left; width: 90%;}
+    .btn-right {float: right; width: 10%;}
   </style>
 
 {% endblock %}
@@ -30,7 +32,7 @@
     <div class="right_col" role="main">
       <!-- top tiles -->
       <div class="row tile_count">
-        <div class="row col-md-6 col-sm-6 col-xs-12 tile_stats_count">
+        <div class="row col-md-6 col-sm-12 col-xs-12 tile_stats_count">
           <!--span class="count_top"><i class="fa fa-book"></i> Cargar Estudio</span-->
           {{ embed(roots.studies) }}
         </div>
@@ -96,28 +98,50 @@
         <div class="col-md-4 col-sm-4 col-xs-12">
           <div class="x_panel tile fixed_height_320 overflow_hidden">
             <div class="x_title">
-              <h2>By Platform</h2>
+              <h2>By Platform</h2> 
               <div class="clearfix"></div>
             </div>
             {{ embed(roots.platform) }}
           </div>
         </div>
 
-
         <div class="col-md-4 col-sm-4 col-xs-12">
           <div class="x_panel tile fixed_height_320 overflow_hidden">
             <div class="x_title">
-              <h2>Details</h2>
+              <h2>Barras 2</h2> 
+              <div class="clearfix"></div>
+            </div>
+            {{ embed(roots.graph2x) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="hidden"> {{embed(roots.workingFile)}} </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel tile fixed_height_390 overflow_hidden">
+            <div class="x_title">
+              <h2>Tabla Resumen de Indicadores</h2>
               <div class="clearfix"></div>
             </div>
             {{ embed(roots.table) }}
           </div>
         </div>
-
-      </div>
-
-      <div class="row">
-        
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel tile fixed_height_390 overflow_hidden">
+            <div class="x_title btn-left">
+              <h2>Video de Trabajo </h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="btn-right"> {{ embed(roots.btn_updvideo) }} </div>
+            <div style="text-align:center">
+              <video id="videoplayer" width="550" height="310" controls>
+                <source src="" type="video/mp4"><source src="" type="video/ogg">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>

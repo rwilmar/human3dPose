@@ -16,6 +16,10 @@ def getVideoFrame(videoFile, frameNumber, enableErrImg=True):
             raise("Can't receive frame (video end?)")
     return frame
 
+# Prepares frame to bokeh (RGBA + flipped)
+def bokeh_postProc(image):
+    frameRGBA = cv2.cvtColor(image, cv2.COLOR_BGR2RGBA)
+    return cv2.flip(frameRGBA, 0)
 
 #Preprocess the input image.
 def preprocessing(input_image, height, width):

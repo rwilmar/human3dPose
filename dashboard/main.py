@@ -6,9 +6,10 @@ import pandas as pd
 
 from bokeh.io import curdoc
 from bokeh.layouts import column, row
-from bokeh.models import (Button, ColumnDataSource, DataTable, Div, GraphRenderer,
-                        NumberFormatter, Oval, Paragraph, RangeTool, Select, StaticLayoutProvider, 
-                        StringFormatter, TableColumn, TextInput  )
+from bokeh.models import (BoxSelectTool, Button, Circle, ColumnDataSource, DataTable, Div, 
+                    EdgesAndLinkedNodes, GraphRenderer, HoverTool, MultiLine, NodesAndLinkedEdges,
+                    NumberFormatter, Oval, Paragraph, RangeTool, Select, StaticLayoutProvider, 
+                    StringFormatter, TableColumn, TapTool, TextInput)
 from bokeh.palettes import Spectral11, Spectral8
 from bokeh.plotting import figure
 from bokeh.models.callbacks import CustomJS
@@ -164,20 +165,34 @@ h=720
 w=1280
 mySkeleton=importSkeleton(csvSrc+".skl")
 myStudy=importStudy(csvSrc)
-currFrame=0
+currFrame=56
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
 #x_range=(xmin, xmax), y_range=(ymax, ymin)
 skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph",
-              tools='pan,wheel_zoom,box_zoom,reset', plot_width=580,plot_height=300, title=None)
-              # toolbar_location=None )
+              tools='pan,wheel_zoom,box_zoom,reset,tap,box_select,hover', plot_width=570,plot_height=300, 
+              title="Network Graph (Articulaciones)", tooltips=[("coord", "$x $y"), ("art", "$index")])
+skPlot.xaxis.visible = False
+skPlot.title.text_color = "#5DB85C"
+skPlot.title.align = "center"
+
 netGraph = GraphRenderer()
+netGraph.selection_policy = NodesAndLinkedEdges()
+netGraph.inspection_policy = EdgesAndLinkedNodes()
+
 myBkSkeleton, connxs = genBokeh_Skeleton(mySkeleton, myStudy.iloc[currFrame])
 
 netGraph.node_renderer.data_source.add(myBkSkeleton.index, 'index')
 netGraph.node_renderer.data_source.add(myBkSkeleton['color'], 'color')
-netGraph.node_renderer.glyph = Oval(height=18, width=18, fill_color='color')
+netGraph.node_renderer.glyph = Circle(size=10, line_color='color', fill_color='color', fill_alpha=0.4)
+netGraph.node_renderer.selection_glyph = Circle(size=12, fill_color='color',  fill_alpha=0.7)
+netGraph.node_renderer.hover_glyph = Circle(size=12, fill_color='color')     
+
 netGraph.edge_renderer.data_source.data = connxs
+netGraph.edge_renderer.glyph = MultiLine(line_color="#c8c8c8", line_width=2)
+netGraph.edge_renderer.selection_glyph = MultiLine(line_color='#777777', line_width=2)
+netGraph.edge_renderer.hover_glyph = MultiLine(line_color='#888888', line_width=2)
+
 graph_layout = dict(zip(myBkSkeleton.index,  myBkSkeleton["coord2d"]))
 netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 skPlot.renderers.append(netGraph)
@@ -198,10 +213,18 @@ frameRGBA = bokeh_postProc(frame)
 h, w, c = frameRGBA.shape
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h, w)
-MyPhoto = figure(x_range=(xmin, xmax), y_range=(ymin, ymax), name="currPhoto", 
-                    tooltips=[("x coord", "$x"), ("y coord", "720-$y"), ("value", "@image")],
-                    tools='pan,wheel_zoom,box_zoom,reset', plot_width=390,plot_height=360, title=None)
-MyPhoto.image_rgba(image=[frameRGBA], x=0, y=0, dw=w, dh=h)
+MyPhoto = figure(x_range=(xmin, xmax), y_range=(-ymax, ymin), name="currPhoto", 
+                    tooltips=[("x coord", "$x"), ("y coord", "$y"), ("value", "@image")],
+                    tools='pan,wheel_zoom,box_zoom,reset,save', plot_width=390,plot_height=360, title=None)
+MyPhoto.yaxis.visible = False
+MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
+def testaction(evt):
+    outputStatus.text = "Fired! "+videoFile 
+    frame=getVideoFrame(videoFile, 122)
+    frameRGBA = bokeh_postProc(frame)
+    MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
+
+MyPhoto.on_event('reset', testaction)
 
 curdoc().add_root(MyPhoto)
 

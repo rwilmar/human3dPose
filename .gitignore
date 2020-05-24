@@ -16,3 +16,4 @@
 #Jupyter - Python cahche, tracking
 /.ipynb_checkpoints
 /__pycache__
+/dashboard/static/*.mp4

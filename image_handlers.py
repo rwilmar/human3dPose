@@ -1,9 +1,23 @@
 import cv2
 import numpy as np
 
-'''
-Preprocess the input image.
-'''
+# takes frame picture from a video
+def getVideoFrame(videoFile, frameNumber, enableErrImg=True):
+    capture = cv2.VideoCapture(videoFile, cv2.CAP_FFMPEG)
+    if (capture.isOpened() == False): 
+        raise("Unable to open video file")
+    capture.set(cv2.CAP_PROP_POS_FRAMES, frameNumber)
+    ret, frame = capture.read()
+    capture.release()
+    if not ret:
+        if enableErrImg:
+            frame=cv2.imread("./images/error.png")
+        else:
+            raise("Can't receive frame (video end?)")
+    return frame
+
+
+#Preprocess the input image.
 def preprocessing(input_image, height, width):
     '''
     Given an input image, height and width:
@@ -99,7 +113,7 @@ def create_output_image(model_type, image, output):
         image = cv2.cvtColor(imageBk, cv2.COLOR_GRAY2BGR)
         #image = image.astype(int) pose_mask.astype(int)
         return image
-
+    
     elif model_type == "TEXT":
         # Get only text detections above 0.5 confidence, set to 255
         output = np.where(output[1]>0.5, 255, 0)

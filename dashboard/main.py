@@ -14,6 +14,14 @@ from bokeh.plotting import figure
 from bokeh.models.callbacks import CustomJS
 
 
+from skeleton_handlers import (calcMiddlePoint, calcDistance,
+                               cleanStrCoords, importStudy, importSkeleton, 
+                               genCV_Skeleton, genBokeh_Skeleton, 
+                               zoomCenterSmCoords, zoomCenterLgCoords)
+from image_handlers import (bokeh_postProc, getVideoFrame)
+
+
+
 from collections import Counter
 from bokeh.sampledata.autompg2 import autompg2 as mpg
 from bokeh.sampledata.stocks import AAPL
@@ -25,6 +33,7 @@ VideosPath="../videos/"
 VideoSrc=""
 VideoOut=""
 VideoTmp="dashboard/static/tmpVideo.mp4"
+csvSrc="./videos/mov3.csv"
 
 
 # Read list of files in default path
@@ -44,20 +53,6 @@ def readFilesList(filesType):
 def pathToName(path = "out.mp4"):
     x = path.split("/")
     return x[-1].split(".")[0]
-
-# Converts coords in string to python tuples
-def cleanStrCoords(coords):
-    if isinstance(coords, str):
-        res=coords[1:-1].split(",")
-        coords=(int(res[0]) , int(res[1]))
-    return coords
-
-# Imports csv study
-def importStudy(study_csv):
-    videoCoords=pd.read_csv(study_csv,sep=";",index_col=0) 
-    for col in videoCoords.columns:
-        videoCoords[col]=videoCoords[col].apply(cleanStrCoords)
-    return videoCoords
 
 class statKpi:
     def __init__(self, kpiName, icon, title):
@@ -99,6 +94,7 @@ def openVideoCbk(attr,old,new):
     buttonSave.disabled = False
     outputStatus.text = "Opening Video " + selectVideo.value+".mp4"
     VideoSrc=VideosPath+selectVideo.value+'.mp4'
+    csvSrc=VideosPath+selectVideo.value+'.csv'
     workingFile.text=selectVideo.value+'.mp4'
     VideoOut=VideosPath+selectVideo.value+'_out.mp4'
     VideoTmp = './dashboard/static/'+selectVideo.value+'.mp4'
@@ -164,53 +160,53 @@ curdoc().add_root(layout)
 
 
 # networkx
-N = 8
-node_indices = list(range(N))
-plot = figure(x_range=(-1.1,1.1), y_range=(-1.1,1.1), tools='', toolbar_location=None,
-                plot_height=410, sizing_mode="scale_both", name="net1")
-graph = GraphRenderer()
-graph.node_renderer.data_source.add(node_indices, 'index')
-graph.node_renderer.data_source.add(Spectral8, 'color')
-#graph.node_renderer.glyph = Oval(height=0.1, width=0.2, fill_color='color')
-graph.edge_renderer.data_source.data = dict(
-    start=[0]*N,
-    end=node_indices)
-### start of layout code
-circ = [i*2*math.pi/8 for i in node_indices]
-x = [math.cos(i) for i in circ]
-y = [math.sin(i) for i in circ]
-graph_layout = dict(zip(node_indices, zip(x, y)))
-graph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
-plot.renderers.append(graph)
+h=720
+w=1280
+mySkeleton=importSkeleton(csvSrc+".skl")
+myStudy=importStudy(csvSrc)
+currFrame=0
 
-curdoc().add_root(plot)
+xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
+#x_range=(xmin, xmax), y_range=(ymax, ymin)
+skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph",
+              tools='pan,wheel_zoom,box_zoom,reset', plot_width=580,plot_height=300, title=None)
+              # toolbar_location=None )
+netGraph = GraphRenderer()
+myBkSkeleton, connxs = genBokeh_Skeleton(mySkeleton, myStudy.iloc[currFrame])
+
+netGraph.node_renderer.data_source.add(myBkSkeleton.index, 'index')
+netGraph.node_renderer.data_source.add(myBkSkeleton['color'], 'color')
+netGraph.node_renderer.glyph = Oval(height=18, width=18, fill_color='color')
+netGraph.edge_renderer.data_source.data = connxs
+graph_layout = dict(zip(myBkSkeleton.index,  myBkSkeleton["coord2d"]))
+netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
+skPlot.renderers.append(netGraph)
+
+curdoc().add_root(skPlot)
 
 
-# Donut chart
 
-x = Counter({ 'United States': 157, 'United Kingdom': 93, 'Japan': 89, 'China': 63,
-              'Germany': 44, 'India': 42, 'Italy': 40, 'Australia': 35, 'Brazil': 32,
-              'France': 31, 'Taiwan': 31  })
 
-data = pd.DataFrame.from_dict(dict(x), orient='index').reset_index().rename(index=str, columns={0:'value', 'index':'country'})
-data['angle'] = data['value']/sum(x.values()) * 2*math.pi
-data['color'] = Spectral11
+# Current Photo
 
-region = figure(plot_height=350, toolbar_location=None, outline_line_color=None, sizing_mode="scale_both", name="region", x_range=(-0.4, 1))
+frameNumber=56
+videoFile="./videos/mov3out.mp4"
 
-region.annular_wedge(x=-0, y=1, inner_radius=0.2, outer_radius=0.32,
-                  start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
-                  line_color="white", fill_color='color', legend_group='country', source=data)
 
-region.axis.axis_label=None
-region.axis.visible=False
-region.grid.grid_line_color = None
-region.legend.label_text_font_size = "0.7em"
-region.legend.spacing = 1
-region.legend.glyph_height = 15
-region.legend.label_height = 15
+frame=getVideoFrame(videoFile, frameNumber)
+frameRGBA = bokeh_postProc(frame)
+h, w, c = frameRGBA.shape
 
-curdoc().add_root(region)
+xmin, ymin, xmax, ymax = zoomCenterSmCoords(h, w)
+MyPhoto = figure(x_range=(xmin, xmax), y_range=(ymin, ymax), name="currPhoto", 
+                    tooltips=[("x coord", "$x"), ("y coord", "720-$y"), ("value", "@image")],
+                    tools='pan,wheel_zoom,box_zoom,reset', plot_width=390,plot_height=360, title=None)
+MyPhoto.image_rgba(image=[frameRGBA], x=0, y=0, dw=w, dh=h)
+
+curdoc().add_root(MyPhoto)
+
+
+
 
 # Bar chart
 
@@ -240,7 +236,7 @@ platform1.outline_line_color = None
 
 platform1.hbar(left=0, right=values1, y=data1, height=0.8)
 
-curdoc().add_root(platform1)
+#curdoc().add_root(platform1)
 
 # Table
 

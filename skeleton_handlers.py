@@ -31,6 +31,18 @@ def exportSkeleton(skeleton, csvPath):
     skeleton.to_csv(csvPath,sep=";",index=True,header=True)
     return True
 
+# Creates pelvis in Skeleton pandas series coords
+def genBokeh_pelvis(skelCoords):
+    pelvisIx=skelCoords.size
+    pelvis=(0,0)
+    if (skelCoords.loc['left_hip']!=(0,0)) and (skelCoords.loc['right_hip']!=(0,0)):
+        pelvis = calcMiddlePoint(skelCoords.loc['left_hip'],skelCoords.loc['right_hip'])
+    if pelvisIx >18: #should have pelvis
+        skelCoords['pelvis']=pelvis
+    else:
+        skelCoords=skelCoords.append(pd.Series([pelvis], index=[0]), ignore_index=True)
+    return skelCoords[skelCoords!=(0,0)] #filter undetected joints
+
 # Generates skeleton Graph data for Bokeh Networkx
 def genBokeh_Skeleton(skeleton, skelCoords):
     #coordinates & colors
@@ -41,7 +53,7 @@ def genBokeh_Skeleton(skeleton, skelCoords):
     mySkeleton.index=np.arange(mySkeleton.shape[0])
     # build pelvis
     pelvis=(0,0)  
-    pelvisix=mySkeleton.shape[0]
+    pelvisix=mySkeleton.shape[0]#should be 19 check genSkeletonPelvis
     if (skelCoords.loc['left_hip']!=(0,0)) and (skelCoords.loc['right_hip']!=(0,0)):
         pelvis = calcMiddlePoint(skelCoords.loc['left_hip'],skelCoords.loc['right_hip'])
     mySkeleton = mySkeleton.append({"name": "pelvis", "coord2d": pelvis,

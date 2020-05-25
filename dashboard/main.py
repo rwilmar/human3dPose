@@ -17,7 +17,7 @@ from bokeh.models.callbacks import CustomJS
 
 from skeleton_handlers import (calcMiddlePoint, calcDistance,
                                cleanStrCoords, importStudy, importSkeleton, 
-                               genCV_Skeleton, genBokeh_Skeleton, 
+                               genCV_Skeleton, genBokeh_pelvis, genBokeh_Skeleton, 
                                zoomCenterSmCoords, zoomCenterLgCoords)
 from image_handlers import (bokeh_postProc, getVideoFrame)
 
@@ -81,13 +81,11 @@ class statKpi:
         self.render.text=str(round(value,2))
 
 
-# Opening Menus
+# Program  Globals and Constants
 curdoc().title = "Dashboard Analisis Movimientos"
-def update_me():
-    outputStatus.text = selectVideo.value + ".csv Saved"
-    kpiLongVal.setKpi(73)
-    kpiCaloriesVal.setKpi(340)
-    kpiMovementVal.setKpi(1.34)
+currFrame=30
+
+# Opening Menu Functions
 def openStudioCbk(attr, old, new):
     if attr=='value':
         outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
@@ -100,13 +98,20 @@ def openVideoCbk(attr,old,new):
     VideoOut=VideosPath+selectVideo.value+'_out.mp4'
     VideoTmp = './dashboard/static/'+selectVideo.value+'.mp4'
     shutil.copyfile(VideoSrc, VideoTmp)
+# Update Stats Functions
+def updateStats():
+    outputStatus.text = selectVideo.value + ".csv Saved"
+    kpiLongVal.setKpi(73)
+    kpiCaloriesVal.setKpi(340)
+    kpiMovementVal.setKpi(1.34)
+    updateGraphSkeleton(None)
 
 buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
 outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
 selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
 selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
 #callbacks linking
-buttonSave.on_click(update_me)
+buttonSave.on_click(updateStats)
 selectStudy.on_change('value', openStudioCbk)
 selectVideo.on_change('value', openVideoCbk)
 
@@ -160,18 +165,18 @@ curdoc().add_root(layout)
 
 
 
-# networkx
+# Network Graph
 h=720
 w=1280
 mySkeleton=importSkeleton(csvSrc+".skl")
 myStudy=importStudy(csvSrc)
-currFrame=56
+
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
 #x_range=(xmin, xmax), y_range=(ymax, ymin)
 skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph",
               tools='pan,wheel_zoom,box_zoom,reset,tap,box_select,hover', plot_width=570,plot_height=300, 
-              title="Network Graph (Articulaciones)", tooltips=[("coord", "$x $y"), ("art", "$index")])
+              title="Network Graph (Articulaciones)", tooltips=[("coord", "$x{0.0} $y{0.0}"), ("art", "$index")])
 skPlot.xaxis.visible = False
 skPlot.title.text_color = "#5DB85C"
 skPlot.title.align = "center"
@@ -197,6 +202,15 @@ graph_layout = dict(zip(myBkSkeleton.index,  myBkSkeleton["coord2d"]))
 netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 skPlot.renderers.append(netGraph)
 
+def updateGraphSkeleton(evt):
+    global currFrame, netGraph
+    currFrame+=10
+    outputStatus.text = "Fire!!!! " + str(currFrame)
+    skCoords=genBokeh_pelvis(myStudy.iloc[currFrame])
+    graph_layout = dict(zip(myBkSkeleton.index, skCoords))
+    netGraph.edge_renderer.data_source.data = connxs
+    netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
+skPlot.on_event('reset', updateGraphSkeleton)
 curdoc().add_root(skPlot)
 
 
@@ -204,28 +218,25 @@ curdoc().add_root(skPlot)
 
 # Current Photo
 
-frameNumber=56
-videoFile="./videos/mov3out.mp4"
+VideoSrc="./videos/mov3out.mp4"
 
-
-frame=getVideoFrame(videoFile, frameNumber)
+frame=getVideoFrame(VideoSrc, currFrame)
 frameRGBA = bokeh_postProc(frame)
 h, w, c = frameRGBA.shape
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h, w)
 MyPhoto = figure(x_range=(xmin, xmax), y_range=(-ymax, ymin), name="currPhoto", 
-                    tooltips=[("x coord", "$x"), ("y coord", "$y"), ("value", "@image")],
+                    tooltips=[("x, y", "$x{0.0} $y{0.0}"), ("val", "@image")],
                     tools='pan,wheel_zoom,box_zoom,reset,save', plot_width=390,plot_height=360, title=None)
 MyPhoto.yaxis.visible = False
 MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
-def testaction(evt):
-    outputStatus.text = "Fired! "+videoFile 
-    frame=getVideoFrame(videoFile, 122)
+
+def updatePhotoFrame(evt):
+    outputStatus.text = "Fired! "+VideoSrc 
+    frame=getVideoFrame(VideoSrc, currFrame)
     frameRGBA = bokeh_postProc(frame)
     MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
-
-MyPhoto.on_event('reset', testaction)
-
+MyPhoto.on_event('reset', updatePhotoFrame)
 curdoc().add_root(MyPhoto)
 
 
@@ -294,9 +305,6 @@ buttonUpdVideo = Button(label="⟳", name="btn_updvideo", button_type="success",
 buttonUpdVideo.js_on_click(callback1)
 
 curdoc().add_root(buttonUpdVideo)
-
-
-
 
 
 

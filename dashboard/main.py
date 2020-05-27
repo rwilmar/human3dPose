@@ -8,8 +8,8 @@ from bokeh.io import curdoc
 from bokeh.layouts import column, row
 from bokeh.models import (BoxSelectTool, Button, Circle, ColumnDataSource, DataTable, Div, 
                     EdgesAndLinkedNodes, GraphRenderer, HoverTool, MultiLine, NodesAndLinkedEdges,
-                    NumberFormatter, Oval, Paragraph, RangeTool, Select, StaticLayoutProvider, 
-                    StringFormatter, TableColumn, TapTool, TextInput)
+                    NumberFormatter, Oval, Panel, Paragraph, RangeTool, Select, StaticLayoutProvider, 
+                    StringFormatter, TableColumn, Tabs, TapTool, TextInput)
 from bokeh.palettes import Spectral11, Spectral8
 from bokeh.plotting import figure
 from bokeh.models.callbacks import CustomJS
@@ -174,7 +174,7 @@ myStudy=importStudy(csvSrc)
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
 #x_range=(xmin, xmax), y_range=(ymax, ymin)
-skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph",
+skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph", outline_line_color=None,
               tools='pan,wheel_zoom,box_zoom,reset,tap,box_select,hover', plot_width=570,plot_height=300, 
               title="Network Graph (Articulaciones)", tooltips=[("coord", "$x{0.0} $y{0.0}"), ("art", "$index")])
 skPlot.xaxis.visible = False
@@ -240,22 +240,35 @@ MyPhoto.on_event('reset', updatePhotoFrame)
 curdoc().add_root(MyPhoto)
 
 
+# Bar chart
+
+p1 = figure(plot_width=570, plot_height=270)
+p1.circle([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], size=20, color="navy", alpha=0.5)
+
+p2 = figure(plot_width=570, plot_height=270)
+p2.line([1, 2, 3, 4, 5], [6, 7, 2, 4, 5], line_width=3, color="navy", alpha=0.5)
 
 
 # Bar chart
 
 plats = ("IOS", "Android", "OSX", "Windows", "Other")
 values = (35, 22, 13, 26, 4)
-platform = figure(plot_height=350, toolbar_location=None, outline_line_color=None, sizing_mode="scale_both", name="platform",
-                  y_range=list(reversed(plats)), x_axis_location="above")
+platform = figure(plot_width=570, plot_height=270, 
+            outline_line_color=None, 
+            y_range=list(reversed(plats)))
 platform.x_range.start = 0
 platform.ygrid.grid_line_color = None
 platform.axis.minor_tick_line_color = None
 platform.outline_line_color = None
-
 platform.hbar(left=0, right=values, y=plats, height=0.8)
+tab1 = Panel(child=platform, title="stats")
 
-curdoc().add_root(platform)
+tab2 = Panel(child=p1, title="circulos")
+tab3 = Panel(child=p2, title="lineas")
+
+tabs = Tabs(tabs=[ tab1, tab2, tab3 ], name="platform")
+curdoc().add_root(tabs)
+
 
 # Bar chart 2
 

@@ -66,7 +66,7 @@
               <div class="row x_title">
                   <h2>Actividad Total <small>serie temporal</small></h2>
               </div>
-              {{ embed(roots.line) }}
+              {{ embed(roots.timeseries_global) }}
             </div>
           </div>
 
@@ -82,14 +82,35 @@
       </div>
 
       <div class="row">
-
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="x_panel tile fixed_height_320 overflow_hidden">
             <!--div class="x_title">
               <h2>Graficos de Movimiento y Velocidad</h2>
               <div class="clearfix"></div>
             </div-->
-            {{ embed(roots.platform) }}
+            {{ embed(roots.timeseries_detail) }}
+          </div>
+        </div>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <!--div class="x_title">
+              <h2>Frequency graphs</h2> 
+              <div class="clearfix"></div>
+            </div-->
+            {{ embed(roots.frequency_detail) }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="x_panel tile fixed_height_320 overflow_hidden">
+            <!--div class="x_title">
+              <h2>Graficos de Movimiento y Velocidad</h2>
+              <div class="clearfix"></div>
+            </div'-->
+            {{ embed(roots.heatMaps) }}
           </div>
         </div>
 
@@ -102,8 +123,8 @@
             {{ embed(roots.netGraph) }}
           </div>
         </div>
-
       </div>
+
 
       <div class="row">
         <div class="hidden"> {{embed(roots.workingFile)}} </div>
@@ -113,7 +134,7 @@
               <h2>Tabla Resumen de Indicadores</h2>
               <div class="clearfix"></div>
             </div>
-            {{ embed(roots.table) }}
+            {{ embed(roots.dataTable_kpis) }}
           </div>
         </div>
         <div class="col-md-6 col-sm-6 col-xs-12">

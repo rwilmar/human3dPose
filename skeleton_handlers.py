@@ -31,7 +31,7 @@ def exportSkeleton(skeleton, csvPath):
     skeleton.to_csv(csvPath,sep=";",index=True,header=True)
     return True
 
-# Creates pelvis in Skeleton pandas series coords
+# Creates pelvis in Skeleton coords (pandas series)
 def genBokeh_pelvis(skelCoords):
     pelvisIx=skelCoords.size
     pelvis=(0,0)

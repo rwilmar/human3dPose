@@ -152,4 +152,11 @@ def create_output_image(model_type, image, output):
         print("Unknown model type, unable to create output image.")
         return image
 
+def process_freq_heatmap(fqImage_raw, peak_ceil):
+    fqImage_raw=np.dot(fqImage_raw, (254/peak_ceil))
+    fqImage_out = cv2.resize(fqImage_raw.astype(np.uint8), (90,90)) # resize to trunk resol.
+    fqImage_out =np.dot(fqImage_out.astype(np.double), (peak_ceil/254)) #recover values
+    return fqImage_out
+
+
         

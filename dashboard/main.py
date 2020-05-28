@@ -147,6 +147,8 @@ VideoSrc="./videos/mov3out.mp4" # for current photo
 graphTileTextColor="#7e685a" #brown silver?
 mySkeleton=importSkeleton(csvSrc+".skl")
 myStudy=importStudy(csvSrc)
+studyLen=myStudy.index.size
+rawCoords=importStudy(csvSrc)
 Fs=30
 Ts=1/Fs
 
@@ -277,14 +279,19 @@ freqDataSource = ColumnDataSource(freqTable)
 
 
 
-# Timeseries Global
+# Timeseries
 
 rollRg=(myStudy.index.size//2-myStudy.index.size//10,myStudy.index.size//2+myStudy.index.size//10)
 
 mainGraph = figure(plot_height=160, tools="", toolbar_location=None, #name="line",
            x_range=rollRg, sizing_mode="scale_width")
 
-mainGraph.line('index', 'body_fx', source=timeSeriesSource, line_width=2, alpha=0.7)
+mainGraph.line('index', 'body_dmod', source=timeSeriesSource, line_width=3, 
+        alpha=0.7, color="#e7717d", legend_label="mod")
+mainGraph.line('index', 'body_dx', source=timeSeriesSource, line_width=2, 
+        alpha=0.7, color="#80949c", legend_label="vel.x")
+mainGraph.line('index', 'body_dy', source=timeSeriesSource, line_width=2, 
+        alpha=0.7, color="#916771", legend_label="vel.y")
 mainGraph.yaxis.axis_label = 'vel (px/frame)'
 mainGraph.background_fill_color="#f5f5f5"
 mainGraph.grid.grid_line_color="white"
@@ -294,10 +301,10 @@ select = figure(plot_height=50, plot_width=600, y_range=mainGraph.y_range,
                 tools="", toolbar_location=None, sizing_mode="scale_width")
 
 range_rool = RangeTool(x_range=mainGraph.x_range)
-range_rool.overlay.fill_color = "navy"
+range_rool.overlay.fill_color = "#e7717d"
 range_rool.overlay.fill_alpha = 0.2
 
-select.line('index', 'body_fx', source=timeSeriesSource)
+select.line('index', 'body_dmod', color="#e7717d", source=timeSeriesSource)
 select.ygrid.grid_line_color = None
 select.add_tools(range_rool)
 select.toolbar.active_multi = range_rool
@@ -305,6 +312,27 @@ select.background_fill_color="#f5f5f5"
 select.grid.grid_line_color="white"
 select.x_range.range_padding = 0.1
 select.yaxis.visible=False
+
+def correct_n_frame(frame):
+    frame=int(frame)
+    if frame> studyLen:
+        return studyLen
+    elif frame<0:
+        return 0
+    else:
+        return frame
+
+def myevent1(evt):
+    global currFrame
+    s=correct_n_frame(mainGraph.x_range.start)
+    e=correct_n_frame(mainGraph.x_range.end)
+    currFrame=correct_n_frame(evt.x)
+    updateGraphSkeleton(None)
+    updatePhotoFrame(None)
+    updateGraphSkeleton(None)
+    outputStatus.text = "Updateeeed! %d, %d, %d"%(s,e,currFrame)
+select.on_event('panend', myevent1)
+
 
 layout = column(mainGraph, select, sizing_mode="scale_width", name="timeseries_global")
 curdoc().add_root(layout)
@@ -340,7 +368,7 @@ curdoc().add_root(MyPhoto)
 
 # Timesweries Detail charts
 
-timeGraphTop = figure(plot_width=570, plot_height=270)
+timeGraphTop = figure(plot_width=570, plot_height=270, x_range=mainGraph.x_range)
 timeGraphTop.line(source=timeSeriesSource, x='index', y='body_dmod', line_width=2, 
        color="gray", legend_label=skelViewData.name_es['neck']) 
 timeGraphTop.line(source=timeSeriesSource, x='index', y='dRel_re', line_width=2, 
@@ -355,7 +383,7 @@ timeGraphTop.line(source=timeSeriesSource, x='index', y='dRel_lw', line_width=2,
 timeGraphTop.legend.location = "top_right"
 timeGraphTop.legend.click_policy="hide"
 
-timeGraphBott = figure(plot_width=570, plot_height=270)
+timeGraphBott = figure(plot_width=570, plot_height=270, x_range=mainGraph.x_range)
 
 timeGraphBott.line(source=timeSeriesSource, x='index', y='body_dmod', line_width=2, 
        color="gray", legend_label=skelViewData.name_es['neck']) 
@@ -463,7 +491,7 @@ fqImage_raw=np.where(fqImage_raw>peak_ceil, peak_ceil, fqImage_raw)
 fqImage_out=process_freq_heatmap(fqImage_raw, peak_ceil)
 colMapperFq = LinearColorMapper(palette="Spectral11", low=0, high=peak_ceil)
 
-freqHeatmap = figure(plot_width=540, plot_height=290, toolbar_location=None,
+freqHeatmap = figure(plot_width=540, plot_height=270, toolbar_location=None,
            tooltips=[("freq", "$x hz"), ("value", "@image")])
 freqHeatmap.x_range.range_padding = freqHeatmap.y_range.range_padding = 0
 #np.matrix([dRel_rf, dRel_rk, dRel_rw, dRel_re, powF_body, dRel_le, dRel_lw, dRel_lk, dRel_lf])
@@ -496,7 +524,7 @@ curdoc().add_root(tabsHMaps)
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
 skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph", outline_line_color=None,
               tools='pan,wheel_zoom,box_zoom,reset,tap,box_select,hover', plot_width=570,plot_height=300, 
-              title="Network Graph (Articulaciones)", tooltips=[("coord", "$x{0.0} $y{0.0}"), ("art", "$index")])
+              tooltips=[("coord", "$x{0.0} $y{0.0}"), ("art", "$index")])
 skPlot.xaxis.visible = False
 skPlot.title.text_color = graphTileTextColor
 skPlot.title.text_font_size="15px"
@@ -523,9 +551,7 @@ skPlot.renderers.append(netGraph)
 
 def updateGraphSkeleton(evt): # evaluate in startup... vars needs to be defined though
     global currFrame, netGraph
-    currFrame+=10
-    outputStatus.text = "Fire!!!! " + str(currFrame)
-    skCoords=genBokeh_pelvis(myStudy.iloc[currFrame])
+    skCoords=genBokeh_pelvis(rawCoords.iloc[currFrame])
     graph_layout = dict(zip(myBkSkeleton.index, skCoords))
     netGraph.edge_renderer.data_source.data = connxs
     netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)

@@ -7,8 +7,8 @@ import pandas as pd
 from bokeh.io import curdoc
 from bokeh.layouts import column, row
 from bokeh.models import (BoxSelectTool, Button, Circle, ColorBar, ColumnDataSource, DataTable, Div, 
-                    EdgesAndLinkedNodes, GraphRenderer, HoverTool, LinearColorMapper,
-                    MultiLine, NodesAndLinkedEdges,
+                    EdgesAndLinkedNodes, FuncTickFormatter, GraphRenderer, HoverTool, 
+                    LinearColorMapper, MultiLine, NodesAndLinkedEdges,
                     NumberFormatter, Oval, Panel, Paragraph, RangeTool, Select, StaticLayoutProvider, 
                     StringFormatter, TableColumn, Tabs, TapTool, TextInput)
 from bokeh.models.callbacks import CustomJS
@@ -33,13 +33,6 @@ from bokeh.sampledata.autompg2 import autompg2 as mpg
 from bokeh.sampledata.stocks import AAPL
 from bokeh.transform import cumsum
 
-StudiesPath="../videos/"
-VideosPath="../videos/"
-
-VideoSrc=""
-VideoOut=""
-VideoTmp="dashboard/static/tmpVideo.mp4"
-csvSrc="./videos/mov3.csv"
 
 
 # Read list of files in default path
@@ -59,6 +52,45 @@ def readFilesList(filesType):
 def pathToName(path = "out.mp4"):
     x = path.split("/")
     return x[-1].split(".")[0]
+
+# Filter wrong frame selections
+def correct_n_frame(frame):
+    global studyLen
+    frame=int(frame)
+    if frame> studyLen:
+        return studyLen
+    elif frame<0:
+        return 0
+    else:
+        return frame
+
+# Return FFT data for windowed selection
+def getFreqWindowData(wstart, wend):
+    global dMod, d_rArm, d_lArm, d_rLeg, d_lLeg
+    wstart=correct_n_frame(wstart)
+    wend=correct_n_frame(wend)
+    Nw=wend-wstart
+
+    x_wfreq=np.linspace(0.0, 1.0/(2.0*Ts), Nw//2)
+    pFw_body=calcfftPower(dMod[wstart:wend], Nw)
+    pFw_rArm=calcfftPower(d_rArm[wstart:wend], Nw)
+    pFw_lArm=calcfftPower(d_lArm[wstart:wend], Nw)
+    pFw_rLeg=calcfftPower(d_rLeg[wstart:wend], Nw)
+    pFw_lLeg=calcfftPower(d_lLeg[wstart:wend], Nw)
+
+    if Nw>30:
+        Nw=len(pFw_body)//3
+    else:
+        Nw=len(pFw_body)
+
+    freqWindTable=None
+    freqWindTable=pd.DataFrame(x_wfreq[0:Nw], columns=['x_wfreq'])
+    freqWindTable['pFw_body']=pFw_body[0:Nw]
+    freqWindTable['pFw_rArm']=pFw_rArm[0:Nw]
+    freqWindTable['pFw_lArm']=pFw_lArm[0:Nw]
+    freqWindTable['pFw_rLeg']=pFw_rLeg[0:Nw]
+    freqWindTable['pFw_lLeg']=pFw_lLeg[0:Nw]
+    return freqWindTable
 
 class statKpi:
     def __init__(self, kpiName, icon, title):
@@ -86,64 +118,25 @@ class statKpi:
         self.render.text=str(round(value,2))
 
 
-# Program  Globals and Constants
-curdoc().title = "Dashboard Analisis Movimientos"
+
+
+
+# Data model definition
+
+curdoc().title = "Analisis Movimientos"
+StudiesPath="../videos/"
+VideosPath="../videos/"
+
 currFrame=30
-
-# Opening Menu Functions
-def openStudioCbk(attr, old, new):
-    if attr=='value':
-        outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
-def openVideoCbk(attr,old,new):
-    buttonSave.disabled = False
-    outputStatus.text = "Opening Video " + selectVideo.value+".mp4"
-    VideoSrc=VideosPath+selectVideo.value+'.mp4'
-    csvSrc=VideosPath+selectVideo.value+'.csv'
-    workingFile.text=selectVideo.value+'.mp4'
-    VideoOut=VideosPath+selectVideo.value+'_out.mp4'
-    VideoTmp = './dashboard/static/'+selectVideo.value+'.mp4'
-    shutil.copyfile(VideoSrc, VideoTmp)
-# Update Stats Functions
-def updateStats():
-    outputStatus.text = selectVideo.value + ".csv Saved"
-    kpiLongVal.setKpi(73)
-    kpiCaloriesVal.setKpi(340)
-    kpiMovementVal.setKpi(1.34)
-    updateGraphSkeleton(None)
-
-buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
-outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
-selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
-selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
-#callbacks linking
-buttonSave.on_click(updateStats)
-selectStudy.on_change('value', openStudioCbk)
-selectVideo.on_change('value', openVideoCbk)
-
-# create a layout for opening menus
-layoutOpening = row(selectStudy, selectVideo, column(outputStatus, buttonSave, width=120), 
-        sizing_mode="scale_width", name="studies")
-# add the layout to curdoc
-curdoc().add_root(layoutOpening)
-# End Opening Menus
+currStartFrame=0 #changed on global timeseries init
+currEndFrame=100 #changed on global timeseries init
 
 
-# Stats
-kpiLongVal=statKpi('kpi_long', 'clock-o', 'Duración(frames)')
-kpiMovementVal=statKpi('kpi_mov', 'child', 'Movim-x (m)')
-kpiCaloriesVal=statKpi('kpi_cal', 'heart-o', 'Total Calorias')
-curdoc().add_root(kpiLongVal.render)
-curdoc().add_root(kpiMovementVal.render)
-curdoc().add_root(kpiCaloriesVal.render)
-
-
-
-
-
-
-# Data get
-VideoSrc="./videos/mov3out.mp4" # for current photo
-#currFrame=30 ya definida al inicio
+VideoFileName="mov1" # default file
+VideoTmp="dashboard/static/tmpVideo.mp4"
+csvSrc="./videos/mov1.csv" 
+VideoSrc="./videos/mov1.mp4" # default study
+VideoOut="./videos/mov1out.mp4"
 graphTileTextColor="#7e685a" #brown silver?
 mySkeleton=importSkeleton(csvSrc+".skl")
 myStudy=importStudy(csvSrc)
@@ -152,6 +145,8 @@ rawCoords=importStudy(csvSrc)
 Fs=30
 Ts=1/Fs
 
+currStartFrame = studyLen//2 - studyLen//10
+currEndFrame = studyLen//2 + studyLen//10
 
 #extract signals
 arr=myStudy['neck']
@@ -199,6 +194,7 @@ d_lArm=np.add(np.abs(dRel_le), np.abs(dRel_lw))
 d_rLeg=np.add(np.abs(dRel_rk), np.abs(dRel_rf))
 d_lLeg=np.add(np.abs(dRel_lk), np.abs(dRel_lf))
 
+myStudy['frameSecs']=np.dot(myStudy.index, Ts)
 myStudy['body_fx']=dfX1
 myStudy['body_fy']=dfY1
 myStudy['body_dx']=dX1
@@ -217,9 +213,12 @@ myStudy['dRel_rh']=dRel_rh
 myStudy['dRel_lk']=dRel_lk
 myStudy['dRel_lf']=dRel_lf
 myStudy['dRel_lh']=dRel_lh
+myStudy['d_rArm']=d_rArm
+myStudy['d_lArm']=d_lArm
+myStudy['d_rLeg']=d_rLeg
+myStudy['d_lLeg']=d_lLeg
 
 #skeleton data arrangement and indicators inserts
-
 mySkeleton["hexCoordQ"]=[None,0,-1,-2,-3,1,2,2,-1,-2,-3,0,0,0,None, None, None, None, None]
 mySkeleton["hexCoordR"]=[None,0, 0, 0, 1,0,0,1, 1, 2, 3,1,2,3,None, None, None, None, None]
 mySkeleton["name_es"]=['', 'Pecho', 'Hombro Der.', 'Codo Der.', 'Muñeca Der.',
@@ -270,27 +269,104 @@ freqTable['powF_lK']=powF_lK
 freqTable['powF_lF']=powF_lF
 
 
-#create datasources
+freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
+
+#create datasources --init
 tableSource = ColumnDataSource(skelViewData)
 timeSeriesSource = ColumnDataSource(myStudy)
 freqDataSource = ColumnDataSource(freqTable)
+fWindDataSource = ColumnDataSource(freqWindTable)
+
+
+#js controls functions
+
+# Opening Menu Functions
+def openStudioCbk(attr, old, new):
+    if attr=='value':
+        outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
+#loads video file in temp dir and updates html
+workingFile=Div(text="", width=100, name="workingFile", id="workingFile")   #preliminar definition
+workingFile.tags=['./dashboard/static/']                                    #preliminar definition
+def loadJsVideo():
+    global workingFile, VideoTmp, outputStatus
+    workingFile.text=VideoFileName+'.mp4'
+    VideoTmp = './dashboard/static/'+VideoFileName+'.mp4'
+    shutil.copyfile(VideoSrc, VideoTmp)
+    outputStatus.text = "Opened " + VideoFileName+".mp4"
+netGraph = GraphRenderer()      # preliminar definition used in network graph
+myBkSkeleton, connxs = genBokeh_Skeleton(mySkeleton, myStudy.iloc[currFrame])
+def updateGraphSkeleton(evt):   # evaluate in startup... globals needs to be defined though
+    global currFrame, netGraph, myBkSkeleton
+    skCoords=genBokeh_pelvis(rawCoords.iloc[currFrame])
+    graph_layout = dict(zip(myBkSkeleton.index, skCoords))
+    netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
+    netGraph.edge_renderer.data_source.data = connxs
 
 
 
+##########  Graphic Controls #########
+
+# Opening menus controls definition
+buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
+outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
+selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
+selectStudy.on_change('value', openStudioCbk)
+selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
+def openVideoCbk(attr,old,new):
+    global VideoSrc, csvSrc, VideoOut, buttonSave, outputStatus
+    buttonSave.disabled = False
+    outputStatus.text = "Opening Video " + selectVideo.value+".mp4"
+    VideoFileName=selectVideo.value+'.mp4'
+    VideoSrc=VideosPath+selectVideo.value+'.mp4'
+    csvSrc=VideosPath+selectVideo.value+'.csv'
+    VideoOut=VideosPath+selectVideo.value+'out.mp4'
+    loadJsVideo()
+selectVideo.on_change('value', openVideoCbk)
+layoutOpening = row(selectStudy, selectVideo, column(outputStatus, buttonSave, width=120), 
+        sizing_mode="scale_width", name="studies")
+# add the layout to curdoc
+curdoc().add_root(layoutOpening)
+# End Opening Menus
+
+# Stats controls definiution
+kpiLongVal=statKpi('kpi_long', 'clock-o', 'Duración(frames)')
+kpiMovementVal=statKpi('kpi_mov', 'child', 'Movim-x (m)')
+kpiCaloriesVal=statKpi('kpi_cal', 'heart-o', 'Total Calorias')
+curdoc().add_root(kpiLongVal.render)
+curdoc().add_root(kpiMovementVal.render)
+curdoc().add_root(kpiCaloriesVal.render)
+def updateStats():
+    #outputStatus.text = "stats updated"
+    kpiLongVal.setKpi(73)
+    kpiCaloriesVal.setKpi(340)
+    kpiMovementVal.setKpi(1.34)
+    updateGraphSkeleton(None)
+buttonSave.on_click(updateStats) # late linking
+#hidden field for js video linking
+curdoc().add_root(workingFile)
+js_videoConnCallback = CustomJS(args=dict(txtCtrl=workingFile), code="""
+var video = document.getElementById('videoplayer');
+video.src = txtCtrl.tags[0]+txtCtrl.text;
+video.play();
+// models passed as args are automagically available
+""")
+buttonUpdVideo = Button(label="⟳", name="btn_updvideo", button_type="success", 
+    width=50, height=31, css_classes=['text-right'])
+buttonUpdVideo.js_on_click(js_videoConnCallback)
+curdoc().add_root(buttonUpdVideo)
 
 
 # Timeseries
 
-rollRg=(myStudy.index.size//2-myStudy.index.size//10,myStudy.index.size//2+myStudy.index.size//10)
-
+rollRg=(currStartFrame, currEndFrame)
 mainGraph = figure(plot_height=160, tools="", toolbar_location=None, #name="line",
            x_range=rollRg, sizing_mode="scale_width")
 
-mainGraph.line('index', 'body_dmod', source=timeSeriesSource, line_width=3, 
+mainGraph.line(x='index', y='body_dmod', source=timeSeriesSource, line_width=3, 
         alpha=0.7, color="#e7717d", legend_label="mod")
-mainGraph.line('index', 'body_dx', source=timeSeriesSource, line_width=2, 
+mainGraph.line(x='index', y='body_dx', source=timeSeriesSource, line_width=2, 
         alpha=0.7, color="#80949c", legend_label="vel.x")
-mainGraph.line('index', 'body_dy', source=timeSeriesSource, line_width=2, 
+mainGraph.line(x='index', y='body_dy', source=timeSeriesSource, line_width=2, 
         alpha=0.7, color="#916771", legend_label="vel.y")
 mainGraph.yaxis.axis_label = 'vel (px/frame)'
 mainGraph.background_fill_color="#f5f5f5"
@@ -311,26 +387,23 @@ select.toolbar.active_multi = range_rool
 select.background_fill_color="#f5f5f5"
 select.grid.grid_line_color="white"
 select.x_range.range_padding = 0.1
+select.xaxis.formatter = FuncTickFormatter(code="return parseFloat(tick*%f).toFixed(2)+ 's'"% Ts)
 select.yaxis.visible=False
 
-def correct_n_frame(frame):
-    frame=int(frame)
-    if frame> studyLen:
-        return studyLen
-    elif frame<0:
-        return 0
-    else:
-        return frame
 
 def myevent1(evt):
-    global currFrame
-    s=correct_n_frame(mainGraph.x_range.start)
-    e=correct_n_frame(mainGraph.x_range.end)
+    global currFrame, currEndFrame, currStartFrame, fWindDataSource, freqWindTable
+    currStartFrame=correct_n_frame(mainGraph.x_range.start)
+    currEndFrame=correct_n_frame(mainGraph.x_range.end)
     currFrame=correct_n_frame(evt.x)
     updateGraphSkeleton(None)
     updatePhotoFrame(None)
-    updateGraphSkeleton(None)
-    outputStatus.text = "Updateeeed! %d, %d, %d"%(s,e,currFrame)
+    #updateGraphSkeleton(None)
+    outputStatus.text = "SF:%d, EF:%d, CF:%d"%(currStartFrame,currEndFrame,currFrame)
+
+    freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
+    fWindDataSource.data = freqWindTable
+
 select.on_event('panend', myevent1)
 
 
@@ -342,7 +415,7 @@ curdoc().add_root(layout)
 
 # Current Photo
 
-frame=getVideoFrame(VideoSrc, currFrame)
+frame=getVideoFrame(VideoOut, currFrame)
 frameRGBA = bokeh_postProc(frame)
 h, w, c = frameRGBA.shape
 
@@ -406,6 +479,30 @@ curdoc().add_root(tabsTs)
 
 
 #frequency charts
+
+
+ymaxFbarT=freqWindTable[['pFw_rArm', 'pFw_lArm']].max(axis=1).max()
+fBarsTop = figure(plot_width=570, plot_height=270, y_range=(0,ymaxFbarT/3))
+fBarsTop.step(source=fWindDataSource, x='x_wfreq', y='pFw_rArm', line_width=2, alpha=0.5,
+       mode="center", color="#e7717d", legend_label="Pot. Brazo Der.")
+fBarsTop.step(source=fWindDataSource, x='x_wfreq', y='pFw_lArm', line_width=2, alpha=0.5,
+       mode="center", color="#7e685a", legend_label="Pot. Brazo Izq.")
+fBarsTop.legend.location = "top_right"
+fBarsTop.legend.click_policy="hide"
+fBarsTop.xaxis.axis_label = "Freq (Hz)"
+fBarsTop.xaxis.axis_label_standoff = -3
+
+ymaxFbarB=freqWindTable[['pFw_rLeg', 'pFw_lLeg']].max(axis=1).max()
+fBarsBott = figure(plot_width=570, plot_height=270, y_range=(0,ymaxFbarB/3))
+fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_rArm', line_width=2, alpha=0.5,
+       mode="center", color="#e7717d", legend_label="Pot. Pierna Der.")
+fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_lArm', line_width=2, alpha=0.5,
+       mode="center", color="#7e685a", legend_label="Pot. Pierna Izq.")
+fBarsBott.legend.location = "top_right"
+fBarsBott.legend.click_policy="hide"
+fBarsBott.xaxis.axis_label = "Freq (Hz)"
+fBarsBott.xaxis.axis_label_standoff = -3
+
 colPalette=Spectral[5]
 freqGraphTop = figure(plot_width=570, plot_height=270)
 freqGraphTop.line('x_freq', 'powF_body', source=freqDataSource, line_width=2, 
@@ -435,16 +532,18 @@ freqGraphBott.line('x_freq', 'powF_lF', source=freqDataSource, line_width=2,
 freqGraphBott.legend.location = "top_right"
 freqGraphBott.legend.click_policy="hide"
 
-tabFreqTop = Panel(child=freqGraphTop, title="Miembros Superiores")
-tabFreqBtm = Panel(child=freqGraphBott, title="Miembros Inferiores")
-tabsFs = Tabs(tabs=[ tabFreqTop, tabFreqBtm ], name="frequency_detail")
+tabFBarsTop = Panel(child=fBarsTop, title="Bandas Freq Brazos (sel)")
+tabFBarsBtm = Panel(child=fBarsBott, title="Bandas Freq Piernas (sel)")
+tabFreqTop = Panel(child=freqGraphTop, title="FFT Global Brazos")
+tabFreqBtm = Panel(child=freqGraphBott, title="FFT Global Piernas")
+tabsFs = Tabs(tabs=[ tabFBarsTop, tabFBarsBtm, tabFreqTop, tabFreqBtm ], name="frequency_detail")
 curdoc().add_root(tabsFs)
 
 
 
 # heatmaps Graphs
 
-#for initilization abs color palette Greens[5]
+#hex tile map
 colMapper = LinearColorMapper(palette=Spectral11, low=skelViewData.abs_dsplc.min(), 
                            high=skelViewData.abs_dsplc.max())
 
@@ -466,22 +565,11 @@ color_bar = ColorBar(color_mapper=colMapper, #ticker=LogTicker(), BasicTicker
 bodyHM.add_layout(color_bar, 'right')
 
 
-data1 = ("Mmm3", "Cosa2", "Nooo", "Para eso", "Claro")
-values1 = (105, 202, 13, 68, 45)
-platform1 = figure(plot_width=570,plot_height=300, toolbar_location=None, outline_line_color=None, sizing_mode="scale_both", 
-        name="graph2x", y_range=list(reversed(data1)), x_axis_location="above")
-platform1.x_range.start = 0
-platform1.ygrid.grid_line_color = None
-platform1.axis.minor_tick_line_color = None
-platform1.outline_line_color = None
-platform1.hbar(left=0, right=values1, y=data1, height=0.8)
 
-
-
+#Freq image map
 maxF=len(powF_body)//4
 Fmax=(Fs/2)/4
 peak_ceil=3.5
-
 
 fqImage_raw=np.matrix([powF_rF[0:maxF], powF_rK[0:maxF], powF_rW[0:maxF], 
              powF_rE[0:maxF], powF_body[0:maxF], powF_lE[0:maxF], 
@@ -530,8 +618,6 @@ skPlot.title.text_color = graphTileTextColor
 skPlot.title.text_font_size="15px"
 skPlot.title.align = "center"
 
-myBkSkeleton, connxs = genBokeh_Skeleton(mySkeleton, myStudy.iloc[currFrame])
-netGraph = GraphRenderer()
 netGraph.selection_policy = NodesAndLinkedEdges()
 netGraph.inspection_policy = EdgesAndLinkedNodes()
 netGraph.node_renderer.data_source.add(myBkSkeleton.index, 'index')
@@ -548,13 +634,6 @@ netGraph.edge_renderer.hover_glyph = MultiLine(line_color='#888888', line_width=
 graph_layout = dict(zip(myBkSkeleton.index,  myBkSkeleton["coord2d"]))
 netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 skPlot.renderers.append(netGraph)
-
-def updateGraphSkeleton(evt): # evaluate in startup... vars needs to be defined though
-    global currFrame, netGraph
-    skCoords=genBokeh_pelvis(rawCoords.iloc[currFrame])
-    graph_layout = dict(zip(myBkSkeleton.index, skCoords))
-    netGraph.edge_renderer.data_source.data = connxs
-    netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
 skPlot.on_event('reset', updateGraphSkeleton)
 curdoc().add_root(skPlot)
 
@@ -580,26 +659,6 @@ data_table = DataTable(source=tableSource, name="dataTable_kpis", columns=column
 curdoc().add_root(data_table)
 
 
-
-
-
-workingFile=Div(text="", width=100, name="workingFile", id="workingFile")
-workingFile.tags=['./dashboard/static/']
-curdoc().add_root(workingFile)
-
-callback1 = CustomJS(args=dict(txtCtrl=workingFile), code="""
-var video = document.getElementById('videoplayer');
-video.src = txtCtrl.tags[0]+txtCtrl.text;
-video.play();
-// models passed as args are automagically available
-""")
-buttonUpdVideo = Button(label="⟳", name="btn_updvideo", button_type="success", 
-    width=50, height=31, css_classes=['text-right'])
-buttonUpdVideo.js_on_click(callback1)
-
-curdoc().add_root(buttonUpdVideo)
-
-
-
-
-
+# final callbacks linking
+updateStats()
+loadJsVideo()

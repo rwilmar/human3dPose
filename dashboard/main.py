@@ -301,8 +301,13 @@ def updateGraphSkeleton(evt):   # evaluate in startup... globals needs to be def
     graph_layout = dict(zip(myBkSkeleton.index, skCoords))
     netGraph.layout_provider = StaticLayoutProvider(graph_layout=graph_layout)
     netGraph.edge_renderer.data_source.data = connxs
-
-
+def updateCurrFrame(evt):
+    global currFrame, currEndFrame, currStartFrame, fWindDataSource, freqWindTable
+    currFrame=correct_n_frame(evt.x)
+    updateGraphSkeleton(None)
+    updatePhotoFrame(None)
+def calcCalories(startFrame, endFrame):
+    return 0.00248 * skelViewData.displacement.sum()
 
 ##########  Graphic Controls #########
 
@@ -328,18 +333,18 @@ layoutOpening = row(selectStudy, selectVideo, column(outputStatus, buttonSave, w
 curdoc().add_root(layoutOpening)
 # End Opening Menus
 
-# Stats controls definiution
+# Stats controls definition
 kpiLongVal=statKpi('kpi_long', 'clock-o', 'Duración(frames)')
-kpiMovementVal=statKpi('kpi_mov', 'child', 'Movim-x (m)')
+kpiMovementVal=statKpi('kpi_mov', 'child', 'Movimiento neto (px)')
 kpiCaloriesVal=statKpi('kpi_cal', 'heart-o', 'Total Calorias')
 curdoc().add_root(kpiLongVal.render)
 curdoc().add_root(kpiMovementVal.render)
 curdoc().add_root(kpiCaloriesVal.render)
 def updateStats():
     #outputStatus.text = "stats updated"
-    kpiLongVal.setKpi(73)
-    kpiCaloriesVal.setKpi(340)
-    kpiMovementVal.setKpi(1.34)
+    kpiLongVal.setKpi(studyLen)
+    kpiCaloriesVal.setKpi(calcCalories(currStartFrame, currEndFrame))
+    kpiMovementVal.setKpi(skelViewData.displacement.sum())
     updateGraphSkeleton(None)
 buttonSave.on_click(updateStats) # late linking
 #hidden field for js video linking
@@ -371,6 +376,7 @@ mainGraph.line(x='index', y='body_dy', source=timeSeriesSource, line_width=2,
 mainGraph.yaxis.axis_label = 'vel (px/frame)'
 mainGraph.background_fill_color="#f5f5f5"
 mainGraph.grid.grid_line_color="white"
+mainGraph.on_event('doubletap', updateCurrFrame)
 
 select = figure(plot_height=50, plot_width=600, y_range=mainGraph.y_range,
                 #x_axis_type="datetime", y_axis_type=None,
@@ -390,21 +396,19 @@ select.x_range.range_padding = 0.1
 select.xaxis.formatter = FuncTickFormatter(code="return parseFloat(tick*%f).toFixed(2)+ 's'"% Ts)
 select.yaxis.visible=False
 
-
-def myevent1(evt):
+def updatePanWindow(evt):
     global currFrame, currEndFrame, currStartFrame, fWindDataSource, freqWindTable
     currStartFrame=correct_n_frame(mainGraph.x_range.start)
     currEndFrame=correct_n_frame(mainGraph.x_range.end)
     currFrame=correct_n_frame(evt.x)
     updateGraphSkeleton(None)
     updatePhotoFrame(None)
-    #updateGraphSkeleton(None)
     outputStatus.text = "SF:%d, EF:%d, CF:%d"%(currStartFrame,currEndFrame,currFrame)
 
     freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
     fWindDataSource.data = freqWindTable
 
-select.on_event('panend', myevent1)
+select.on_event('panend', updatePanWindow)
 
 
 layout = column(mainGraph, select, sizing_mode="scale_width", name="timeseries_global")
@@ -427,14 +431,12 @@ MyPhoto.yaxis.visible = False
 MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
 
 def updatePhotoFrame(evt):
-    outputStatus.text = "Fired! "+VideoSrc 
-    frame=getVideoFrame(VideoSrc, currFrame)
+    #outputStatus.text = "Fired! "+VideoSrc 
+    frame=getVideoFrame(VideoOut, currFrame)
     frameRGBA = bokeh_postProc(frame)
     MyPhoto.image_rgba(image=[frameRGBA], x=0, y=-ymax, dw=w, dh=h)
 MyPhoto.on_event('reset', updatePhotoFrame)
 curdoc().add_root(MyPhoto)
-
-
 
 
 
@@ -452,12 +454,11 @@ timeGraphTop.line(source=timeSeriesSource, x='index', y='dRel_le', line_width=2,
        color=Spectral[5][0], legend_label=skelViewData.name_es['left_elbow'])
 timeGraphTop.line(source=timeSeriesSource, x='index', y='dRel_lw', line_width=2, 
        color=Spectral[5][3], legend_label=skelViewData.name_es['left_wrist'])
-
 timeGraphTop.legend.location = "top_right"
 timeGraphTop.legend.click_policy="hide"
+timeGraphTop.on_event('doubletap', updateCurrFrame)
 
 timeGraphBott = figure(plot_width=570, plot_height=270, x_range=mainGraph.x_range)
-
 timeGraphBott.line(source=timeSeriesSource, x='index', y='body_dmod', line_width=2, 
        color="gray", legend_label=skelViewData.name_es['neck']) 
 timeGraphBott.line(source=timeSeriesSource, x='index', y='dRel_rk', line_width=2, 
@@ -470,6 +471,7 @@ timeGraphBott.line(source=timeSeriesSource, x='index', y='dRel_lf', line_width=2
                    color=Spectral[5][3], legend_label=skelViewData.name_es['left_foot'])
 timeGraphBott.legend.location = "top_right"
 timeGraphBott.legend.click_policy="hide"
+timeGraphBott.on_event('doubletap', updateCurrFrame)
 
 tabTimeTop = Panel(child=timeGraphTop, title="Miembros Superiores")
 tabMTimeBtm = Panel(child=timeGraphBott, title="Miembros Inferiores")

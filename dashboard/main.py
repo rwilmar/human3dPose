@@ -92,6 +92,8 @@ def getFreqWindowData(wstart, wend):
     freqWindTable['pFw_lLeg']=pFw_lLeg[0:Nw]
     return freqWindTable
 
+# classes for view objects (stats)
+
 class statKpi:
     def __init__(self, kpiName, icon, title):
         self.name=kpiName
@@ -118,157 +120,159 @@ class statKpi:
         self.render.text=str(round(value,2))
 
 
-
-
-
 # Data model definition
 
+def calcJointSpeeds(myStudy):
+    global dMod, dMod_rw, dMod_re, dMod_rs, dMod_lw, dMod_le, dMod_ls
+    global dMod_rh, dMod_rk, dMod_rf, dMod_lh, dMod_lk, dMod_lf
+    global dRel_rw, dRel_re, dRel_rs, dRel_lw, dRel_le, dRel_ls
+    global dRel_rf, dRel_rk, dRel_rh, dRel_lf, dRel_lk, dRel_lh
+    global d_rArm, d_lArm, d_rLeg, d_lLeg
+    #extract signals
+    dfX1, dfY1, dX1, dY1, dMod, dArg = calcJointSignals(myStudy['neck'])
+    dfX_rw, dfY_rw, dX_rw, dY_rw, dMod_rw, dArg_rw = calcJointSignals(myStudy['right_wrist'])
+    dfX_re, dfY_re, dX_re, dY_re, dMod_re, dArg_re = calcJointSignals(myStudy['right_elbow'])
+    dfX_rs, dfY_rs, dX_rs, dY_rs, dMod_rs, dArg_rs = calcJointSignals(myStudy['right_shoulder'])
+    dfX_lw, dfY_lw, dX_lw, dY_lw, dMod_lw, dArg_lw = calcJointSignals(myStudy['left_wrist'])
+    dfX_le, dfY_le, dX_le, dY_le, dMod_le, dArg_le = calcJointSignals(myStudy['left_elbow'])
+    dfX_ls, dfY_ls, dX_ls, dY_ls, dMod_ls, dArg_ls = calcJointSignals(myStudy['left_shoulder'])
+    dfX_rh, dfY_rh, dX_rh, dY_rh, dMod_rh, dArg_rh = calcJointSignals(myStudy['right_hip'])
+    dfX_rk, dfY_rk, dX_rk, dY_rk, dMod_rk, dArg_rk = calcJointSignals(myStudy['right_knee'])
+    dfX_rf, dfY_rf, dX_rf, dY_rf, dMod_rf, dArg_rf = calcJointSignals(myStudy['right_foot'])
+    dfX_lh, dfY_lh, dX_lh, dY_lh, dMod_lh, dArg_lh = calcJointSignals(myStudy['left_hip'])
+    dfX_lk, dfY_lk, dX_lk, dY_lk, dMod_lk, dArg_lk = calcJointSignals(myStudy['left_knee'])
+    dfX_lf, dfY_lf, dX_lf, dY_lf, dMod_lf, dArg_lf = calcJointSignals(myStudy['left_foot'])
+    #calc relative speeds
+    dRel_rw=np.subtract(dMod_rw, dMod_re)
+    dRel_re=np.subtract(dMod_re, dMod_rs)
+    dRel_rs=np.subtract(dMod_rs, dMod)
+    dRel_lw=np.subtract(dMod_lw, dMod_le)
+    dRel_le=np.subtract(dMod_le, dMod_ls)
+    dRel_ls=np.subtract(dMod_ls, dMod) 
+    dRel_rf=np.subtract(dMod_rf, dMod_rk)
+    dRel_rk=np.subtract(dMod_rk, dMod_rh)
+    dRel_rh=np.subtract(dMod_rh, dMod)
+    dRel_lf=np.subtract(dMod_lf, dMod_lk)
+    dRel_lk=np.subtract(dMod_lk, dMod_lh)
+    dRel_lh=np.subtract(dMod_lh, dMod)
+    #calc global joint signals
+    d_rArm=np.add(np.abs(dRel_re), np.abs(dRel_rw))
+    d_lArm=np.add(np.abs(dRel_le), np.abs(dRel_lw))
+    d_rLeg=np.add(np.abs(dRel_rk), np.abs(dRel_rf))
+    d_lLeg=np.add(np.abs(dRel_lk), np.abs(dRel_lf))
+    #insert into dataframe
+    myStudy['frameSecs']=np.dot(myStudy.index, Ts)
+    myStudy['body_fx']=dfX1
+    myStudy['body_fy']=dfY1
+    myStudy['body_dx']=dX1
+    myStudy['body_dy']=dY1
+    myStudy['body_dmod']=dMod
+    myStudy['body_darg']=dArg
+    myStudy['dRel_rw']=dRel_rw
+    myStudy['dRel_re']=dRel_re
+    myStudy['dRel_rs']=dRel_rs
+    myStudy['dRel_lw']=dRel_lw
+    myStudy['dRel_le']=dRel_le
+    myStudy['dRel_ls']=dRel_ls
+    myStudy['dRel_rk']=dRel_rk
+    myStudy['dRel_rf']=dRel_rf
+    myStudy['dRel_rh']=dRel_rh
+    myStudy['dRel_lk']=dRel_lk
+    myStudy['dRel_lf']=dRel_lf
+    myStudy['dRel_lh']=dRel_lh 
+    myStudy['d_rArm']=d_rArm
+    myStudy['d_lArm']=d_lArm
+    myStudy['d_rLeg']=d_rLeg
+    myStudy['d_lLeg']=d_lLeg
+    return myStudy
+
+def calcSkeletonData(mySkeleton):
+    #skeleton data arrangement and indicators inserts
+    mySkeleton["hexCoordQ"]=[None,0,-1,-2,-3,1,2,2,-1,-2,-3,0,0,0,None, None, None, None, None]
+    mySkeleton["hexCoordR"]=[None,0, 0, 0, 1,0,0,1, 1, 2, 3,1,2,3,None, None, None, None, None]
+    mySkeleton["name_es"]=['', 'Pecho', 'Hombro Der.', 'Codo Der.', 'Muñeca Der.',
+        'Hombro Izq.', 'Codo Izq.', 'Muñeca Izq.', 'Cadera Der.', 'Rodilla Der.',
+        'Pie Der.', 'Cadera Izq.', 'Rodilla Izq.', 'Pie Izq.', '',
+        '', '', '', '']
+    mySkeleton["displacement"]=[None, np.sum(np.abs(dMod)), np.sum(np.abs(dRel_rs)), np.sum(np.abs(dRel_re)), 
+            np.sum(np.abs(dRel_rw)),np.sum(np.abs(dRel_ls)), np.sum(np.abs(dRel_le)), np.sum(np.abs(dRel_lw)), 
+            np.sum(np.abs(dRel_rh)),np.sum(np.abs(dRel_rk)), np.sum(np.abs(dRel_rf)), np.sum(np.abs(dRel_lh)), 
+            np.sum(np.abs(dRel_lk)), np.sum(np.abs(dRel_rf)), None, None, None, None, None]
+    mySkeleton["abs_dsplc"]=[None, np.sum(dMod), np.sum(dMod_rs), np.sum(dMod_re), np.sum(dMod_rw),
+            np.sum(dMod_ls), np.sum(dMod_le), np.sum(dMod_lw), np.sum(dMod_rh),
+            np.sum(dMod_rk), np.sum(dMod_rf), np.sum(dMod_lh), 
+            np.sum(dMod_lk), np.sum(dMod_rf), None, None, None, None, None]
+    mySkeleton["max_speed"]=[None, np.max(np.abs(dMod)), np.max(np.abs(dRel_rs)), np.max(np.abs(dRel_re)), 
+            np.max(np.abs(dRel_rw)),np.sum(np.max(dRel_ls)), np.max(np.abs(dRel_le)), np.max(np.abs(dRel_lw)), 
+            np.max(np.abs(dRel_rh)),np.sum(np.max(dRel_rk)), np.max(np.abs(dRel_rf)), np.max(np.abs(dRel_lh)), 
+            np.sum(np.max(dRel_lk)), np.max(np.abs(dRel_rf)), None, None, None, None, None]
+    mySkeleton["avg_speed"]=np.dot(mySkeleton["displacement"],(1/len(dMod)))
+    return mySkeleton
+
+def calcFreqData(myStudy):
+    N=myStudy.index.size
+    global powF_body, powF_rE, powF_rW, powF_lE, powF_lW, powF_rK, powF_rF, powF_lK, powF_lF
+    powF_body=calcfftPower(myStudy['body_dmod'].to_numpy(), N)
+    powF_rE=calcfftPower(myStudy['dRel_re'].to_numpy(), N)
+    powF_rW=calcfftPower(myStudy['dRel_rw'].to_numpy(), N)
+    powF_lE=calcfftPower(myStudy['dRel_le'].to_numpy(), N)
+    powF_lW=calcfftPower(myStudy['dRel_lw'].to_numpy(), N)
+    powF_rK=calcfftPower(myStudy['dRel_rk'].to_numpy(), N)
+    powF_rF=calcfftPower(myStudy['dRel_rf'].to_numpy(), N)
+    powF_lK=calcfftPower(myStudy['dRel_lk'].to_numpy(), N)
+    powF_lF=calcfftPower(myStudy['dRel_lf'].to_numpy(), N)
+
+    x_freq=np.linspace(0.0, 1.0/(2.0*Ts), N//2)
+    freqTable=pd.DataFrame(powF_body, columns=['powF_body'])
+    freqTable['x_freq']=x_freq
+    freqTable['powF_rE']=powF_rE
+    freqTable['powF_rW']=powF_rE
+    freqTable['powF_lE']=powF_lE
+    freqTable['powF_lW']=powF_lW
+    freqTable['powF_rK']=powF_rK
+    freqTable['powF_rF']=powF_rF
+    freqTable['powF_lK']=powF_lK
+    freqTable['powF_lF']=powF_lF
+    return freqTable
+
+def loadStudioFileNames(studioFileName):
+    global csvSrc, VideoSrc, VideoOut
+    csvSrc="./videos/"+studioFileName+".csv" 
+    VideoSrc="./videos/"+studioFileName+".mp4" 
+    VideoOut="./videos/"+studioFileName+"out.mp4"
+def openStudioFiles(fileName):
+    global csvSrc, outputStatus, currFrame, currStartFrame, currEndFrame
+    global VideoSrc, VideoFileName, VideoOut, VideoTmp
+    global mySkeleton, myStudy, studyLen, rawCoords, Fs, Ts
+    VideoFileName=fileName
+    loadStudioFileNames(VideoFileName)
+    mySkeleton=importSkeleton(csvSrc+".skl")
+    myStudy=importStudy(csvSrc)
+    studyLen=myStudy.index.size
+    rawCoords=importStudy(csvSrc)
+    Fs=30
+    Ts=1/Fs
+    currFrame=30
+    currStartFrame = studyLen//2 - studyLen//10
+    currEndFrame = studyLen//2 + studyLen//10
+
+
+# Initial data 
+
 curdoc().title = "Analisis Movimientos"
-StudiesPath="../videos/"
+StudiesPath="./videos/"
 VideosPath="../videos/"
-
-currFrame=30
-currStartFrame=0 #changed on global timeseries init
-currEndFrame=100 #changed on global timeseries init
-
-
-VideoFileName="mov1" # default file
 VideoTmp="dashboard/static/tmpVideo.mp4"
-csvSrc="./videos/mov1.csv" 
-VideoSrc="./videos/mov1.mp4" # default study
-VideoOut="./videos/mov1out.mp4"
-graphTileTextColor="#7e685a" #brown silver?
-mySkeleton=importSkeleton(csvSrc+".skl")
-myStudy=importStudy(csvSrc)
-studyLen=myStudy.index.size
-rawCoords=importStudy(csvSrc)
-Fs=30
-Ts=1/Fs
 
-currStartFrame = studyLen//2 - studyLen//10
-currEndFrame = studyLen//2 + studyLen//10
+VideoFileName="mov1"                # default file
+openStudioFiles(VideoFileName)      # loads basic studio info and datasets
 
-#extract signals
-arr=myStudy['neck']
-dfX1, dfY1, dX1, dY1, dMod, dArg = calcJointSignals(arr)
-arr=myStudy['right_wrist']
-dfX_rw, dfY_rw, dX_rw, dY_rw, dMod_rw, dArg_rw = calcJointSignals(arr)
-arr=myStudy['right_elbow']
-dfX_re, dfY_re, dX_re, dY_re, dMod_re, dArg_re = calcJointSignals(arr)
-arr=myStudy['right_shoulder']
-dfX_rs, dfY_rs, dX_rs, dY_rs, dMod_rs, dArg_rs = calcJointSignals(arr)
-arr=myStudy['left_wrist']
-dfX_lw, dfY_lw, dX_lw, dY_lw, dMod_lw, dArg_lw = calcJointSignals(arr)
-arr=myStudy['left_elbow']
-dfX_le, dfY_le, dX_le, dY_le, dMod_le, dArg_le = calcJointSignals(arr)
-arr=myStudy['left_shoulder']
-dfX_ls, dfY_ls, dX_ls, dY_ls, dMod_ls, dArg_ls = calcJointSignals(arr)
-arr=myStudy['right_hip']
-dfX_rh, dfY_rh, dX_rh, dY_rh, dMod_rh, dArg_rh = calcJointSignals(arr)
-arr=myStudy['right_knee']
-dfX_rk, dfY_rk, dX_rk, dY_rk, dMod_rk, dArg_rk = calcJointSignals(arr)
-arr=myStudy['right_foot']
-dfX_rf, dfY_rf, dX_rf, dY_rf, dMod_rf, dArg_rf = calcJointSignals(arr)
-arr=myStudy['left_hip']
-dfX_lh, dfY_lh, dX_lh, dY_lh, dMod_lh, dArg_lh = calcJointSignals(arr)
-arr=myStudy['left_knee']
-dfX_lk, dfY_lk, dX_lk, dY_lk, dMod_lk, dArg_lk = calcJointSignals(arr)
-arr=myStudy['left_foot']
-dfX_lf, dfY_lf, dX_lf, dY_lf, dMod_lf, dArg_lf = calcJointSignals(arr)
-#calc relative speeds
-dRel_rw=np.subtract(dMod_rw, dMod_re)
-dRel_re=np.subtract(dMod_re, dMod_rs)
-dRel_rs=np.subtract(dMod_rs, dMod)
-dRel_lw=np.subtract(dMod_lw, dMod_le)
-dRel_le=np.subtract(dMod_le, dMod_ls)
-dRel_ls=np.subtract(dMod_ls, dMod)
-dRel_rf=np.subtract(dMod_rf, dMod_rk)
-dRel_rk=np.subtract(dMod_rk, dMod_rh)
-dRel_rh=np.subtract(dMod_rh, dMod)
-dRel_lf=np.subtract(dMod_lf, dMod_lk)
-dRel_lk=np.subtract(dMod_lk, dMod_lh)
-dRel_lh=np.subtract(dMod_lh, dMod)
-#calc global joint signals
-d_rArm=np.add(np.abs(dRel_re), np.abs(dRel_rw))
-d_lArm=np.add(np.abs(dRel_le), np.abs(dRel_lw))
-d_rLeg=np.add(np.abs(dRel_rk), np.abs(dRel_rf))
-d_lLeg=np.add(np.abs(dRel_lk), np.abs(dRel_lf))
-
-myStudy['frameSecs']=np.dot(myStudy.index, Ts)
-myStudy['body_fx']=dfX1
-myStudy['body_fy']=dfY1
-myStudy['body_dx']=dX1
-myStudy['body_dy']=dY1
-myStudy['body_dmod']=dMod
-myStudy['body_darg']=dArg
-myStudy['dRel_rw']=dRel_rw
-myStudy['dRel_re']=dRel_re
-myStudy['dRel_rs']=dRel_rs
-myStudy['dRel_lw']=dRel_lw
-myStudy['dRel_le']=dRel_le
-myStudy['dRel_ls']=dRel_ls
-myStudy['dRel_rk']=dRel_rk
-myStudy['dRel_rf']=dRel_rf
-myStudy['dRel_rh']=dRel_rh
-myStudy['dRel_lk']=dRel_lk
-myStudy['dRel_lf']=dRel_lf
-myStudy['dRel_lh']=dRel_lh
-myStudy['d_rArm']=d_rArm
-myStudy['d_lArm']=d_lArm
-myStudy['d_rLeg']=d_rLeg
-myStudy['d_lLeg']=d_lLeg
-
-#skeleton data arrangement and indicators inserts
-mySkeleton["hexCoordQ"]=[None,0,-1,-2,-3,1,2,2,-1,-2,-3,0,0,0,None, None, None, None, None]
-mySkeleton["hexCoordR"]=[None,0, 0, 0, 1,0,0,1, 1, 2, 3,1,2,3,None, None, None, None, None]
-mySkeleton["name_es"]=['', 'Pecho', 'Hombro Der.', 'Codo Der.', 'Muñeca Der.',
-       'Hombro Izq.', 'Codo Izq.', 'Muñeca Izq.', 'Cadera Der.', 'Rodilla Der.',
-       'Pie Der.', 'Cadera Izq.', 'Rodilla Izq.', 'Pie Izq.', '',
-       '', '', '', '']
-mySkeleton["displacement"]=[None, np.sum(np.abs(dMod)), np.sum(np.abs(dRel_rs)), np.sum(np.abs(dRel_re)), 
-        np.sum(np.abs(dRel_rw)),np.sum(np.abs(dRel_ls)), np.sum(np.abs(dRel_le)), np.sum(np.abs(dRel_lw)), 
-        np.sum(np.abs(dRel_rh)),np.sum(np.abs(dRel_rk)), np.sum(np.abs(dRel_rf)), np.sum(np.abs(dRel_lh)), 
-        np.sum(np.abs(dRel_lk)), np.sum(np.abs(dRel_rf)), None, None, None, None, None]
-mySkeleton["abs_dsplc"]=[None, np.sum(dMod), np.sum(dMod_rs), np.sum(dMod_re), np.sum(dMod_rw),
-        np.sum(dMod_ls), np.sum(dMod_le), np.sum(dMod_lw), np.sum(dMod_rh),
-        np.sum(dMod_rk), np.sum(dMod_rf), np.sum(dMod_lh), 
-        np.sum(dMod_lk), np.sum(dMod_rf), None, None, None, None, None]
-mySkeleton["max_speed"]=[None, np.max(np.abs(dMod)), np.max(np.abs(dRel_rs)), np.max(np.abs(dRel_re)), 
-        np.max(np.abs(dRel_rw)),np.sum(np.max(dRel_ls)), np.max(np.abs(dRel_le)), np.max(np.abs(dRel_lw)), 
-        np.max(np.abs(dRel_rh)),np.sum(np.max(dRel_rk)), np.max(np.abs(dRel_rf)), np.max(np.abs(dRel_lh)), 
-        np.sum(np.max(dRel_lk)), np.max(np.abs(dRel_rf)), None, None, None, None, None]
-mySkeleton["avg_speed"]=np.dot(mySkeleton["displacement"],(1/len(dMod)))
-
-#create skeleton for datasource
-skelViewData=mySkeleton[mySkeleton["name_es"]!=""]
+myStudy=calcJointSpeeds(myStudy)    # inserts spped data in main dataset
+mySkeleton=calcSkeletonData(mySkeleton)             # inserts global indicators in skeleton
+skelViewData=mySkeleton[mySkeleton["name_es"]!=""]  # creates dataset for table -- clean
 skelViewData=skelViewData.drop(['SINGLEPOSE', 'baseColor'], axis=1)
 
-#frequency data calc
-N=len(dMod)
-
-powF_body=calcfftPower(dMod, N)
-powF_rE=calcfftPower(dRel_re, N)
-powF_rW=calcfftPower(dRel_rw, N)
-powF_lE=calcfftPower(dRel_le, N)
-powF_lW=calcfftPower(dRel_lw, N)
-powF_rK=calcfftPower(dRel_rk, N)
-powF_rF=calcfftPower(dRel_rf, N)
-powF_lK=calcfftPower(dRel_lk, N)
-powF_lF=calcfftPower(dRel_lf, N)
-
-x_freq=np.linspace(0.0, 1.0/(2.0*Ts), N//2)
-freqTable=pd.DataFrame(powF_body, columns=['powF_body'])
-freqTable['x_freq']=x_freq
-freqTable['powF_rE']=powF_rE
-freqTable['powF_rW']=powF_rE
-freqTable['powF_lE']=powF_lE
-freqTable['powF_lW']=powF_lW
-freqTable['powF_rK']=powF_rK
-freqTable['powF_rF']=powF_rF
-freqTable['powF_lK']=powF_lK
-freqTable['powF_lF']=powF_lF
-
-
+freqTable=calcFreqData(myStudy)     #frequency data calculations
 freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
 
 #create datasources --init
@@ -282,8 +286,32 @@ fWindDataSource = ColumnDataSource(freqWindTable)
 
 # Opening Menu Functions
 def openStudioCbk(attr, old, new):
+    global outputStatus, myStudy, mySkeleton, skelViewData, freqTable, freqWindTable
+    global currStartFrame, currEndFrame, mainGraph, bodyHMHexTile, bodyHMColbar
+    global tableSource, timeSeriesSource, freqDataSource
     if attr=='value':
-        outputStatus.text = "Opening Studio " + selectStudy.value+".csv"
+        openStudioFiles(selectStudy.value)
+        myStudy=calcJointSpeeds(myStudy)    # inserts spped data in main dataset
+        mySkeleton=calcSkeletonData(mySkeleton)             # inserts global indicators in skeleton
+        skelViewData=mySkeleton[mySkeleton["name_es"]!=""]  # creates dataset for table -- clean
+        skelViewData=skelViewData.drop(['SINGLEPOSE', 'baseColor'], axis=1)
+        freqTable=calcFreqData(myStudy)     #frequency data calculations
+        freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
+        #bodyHMColbar.color_mapper=colMapper
+        #bodyHMHexTile.fill_color=transform('abs_dsplc', colMapper)
+        mainGraph.x_range.start=currStartFrame
+        mainGraph.x_range.end=currEndFrame
+        tableSource.data=skelViewData
+        timeSeriesSource.data=myStudy
+        freqDataSource.data=freqTable
+        outputStatus.text = "Datasets linked"
+        updateGraphSkeleton(None)
+        updatePhotoFrame(None)
+        updateFreqHeatMap()
+        updateStats()
+        loadJsVideo()
+    else: 
+        return None 
 #loads video file in temp dir and updates html
 workingFile=Div(text="", width=100, name="workingFile", id="workingFile")   #preliminar definition
 workingFile.tags=['./dashboard/static/']                                    #preliminar definition
@@ -307,7 +335,16 @@ def updateCurrFrame(evt):
     updateGraphSkeleton(None)
     updatePhotoFrame(None)
 def calcCalories(startFrame, endFrame):
-    return 0.00248 * skelViewData.displacement.sum()
+    return 0.187 * skelViewData.displacement.sum()
+def updateFreqHeatMap():
+    global freqHeatmap
+    fqImage_raw=np.matrix([powF_rF[0:maxF], powF_rK[0:maxF], powF_rW[0:maxF], 
+            powF_rE[0:maxF], powF_body[0:maxF], powF_lE[0:maxF], 
+            powF_lW[0:maxF], powF_lK[0:maxF], powF_lF[0:maxF]])
+    fqImage_raw=np.where(fqImage_raw>peak_ceil, peak_ceil, fqImage_raw)  
+    fqImage_out=process_freq_heatmap(fqImage_raw, peak_ceil)
+    freqHeatmap.image(image=[fqImage_out], x=0, y=0, dw=Fmax, dh=9, palette="Spectral11", level="image")
+
 
 ##########  Graphic Controls #########
 
@@ -316,7 +353,7 @@ buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=Tru
 outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
 selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
 selectStudy.on_change('value', openStudioCbk)
-selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'))
+selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'), disabled=True)
 def openVideoCbk(attr,old,new):
     global VideoSrc, csvSrc, VideoOut, buttonSave, outputStatus
     buttonSave.disabled = False
@@ -345,7 +382,7 @@ def updateStats():
     kpiLongVal.setKpi(studyLen)
     kpiCaloriesVal.setKpi(calcCalories(currStartFrame, currEndFrame))
     kpiMovementVal.setKpi(skelViewData.displacement.sum())
-    updateGraphSkeleton(None)
+    #updateGraphSkeleton(None)
 buttonSave.on_click(updateStats) # late linking
 #hidden field for js video linking
 curdoc().add_root(workingFile)
@@ -386,7 +423,7 @@ range_rool = RangeTool(x_range=mainGraph.x_range)
 range_rool.overlay.fill_color = "#e7717d"
 range_rool.overlay.fill_alpha = 0.2
 
-select.line('index', 'body_dmod', color="#e7717d", source=timeSeriesSource)
+select.line(x='index', y='body_dmod', color="#e7717d", source=timeSeriesSource)
 select.ygrid.grid_line_color = None
 select.add_tools(range_rool)
 select.toolbar.active_multi = range_rool
@@ -403,7 +440,7 @@ def updatePanWindow(evt):
     currFrame=correct_n_frame(evt.x)
     updateGraphSkeleton(None)
     updatePhotoFrame(None)
-    outputStatus.text = "SF:%d, EF:%d, CF:%d"%(currStartFrame,currEndFrame,currFrame)
+    outputStatus.text = "SF:%d, EF:%d, CF:%d (%.2f)"%(currStartFrame,currEndFrame,currFrame,currFrame*Ts)
 
     freqWindTable = getFreqWindowData(currStartFrame, currEndFrame)
     fWindDataSource.data = freqWindTable
@@ -496,9 +533,9 @@ fBarsTop.xaxis.axis_label_standoff = -3
 
 ymaxFbarB=freqWindTable[['pFw_rLeg', 'pFw_lLeg']].max(axis=1).max()
 fBarsBott = figure(plot_width=570, plot_height=270, y_range=(0,ymaxFbarB/3))
-fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_rArm', line_width=2, alpha=0.5,
+fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_rLeg', line_width=2, alpha=0.5,
        mode="center", color="#e7717d", legend_label="Pot. Pierna Der.")
-fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_lArm', line_width=2, alpha=0.5,
+fBarsBott.step(source=fWindDataSource, x='x_wfreq', y='pFw_lLeg', line_width=2, alpha=0.5,
        mode="center", color="#7e685a", legend_label="Pot. Pierna Izq.")
 fBarsBott.legend.location = "top_right"
 fBarsBott.legend.click_policy="hide"
@@ -507,29 +544,29 @@ fBarsBott.xaxis.axis_label_standoff = -3
 
 colPalette=Spectral[5]
 freqGraphTop = figure(plot_width=570, plot_height=270)
-freqGraphTop.line('x_freq', 'powF_body', source=freqDataSource, line_width=2, 
+freqGraphTop.line(x='x_freq', y='powF_body', source=freqDataSource, line_width=2, 
         color=colPalette[2], legend_label="FFT Pecho.")
-freqGraphTop.line('x_freq', 'powF_rE', source=freqDataSource, line_width=2, 
+freqGraphTop.line(x='x_freq', y='powF_rE', source=freqDataSource, line_width=2, 
         color=colPalette[1], legend_label="FFT Codo Der.")
-freqGraphTop.line('x_freq', 'powF_rW', source=freqDataSource, line_width=2, 
+freqGraphTop.line(x='x_freq', y='powF_rW', source=freqDataSource, line_width=2, 
         color=colPalette[4], legend_label="FFT Muñeca Der.")
-freqGraphTop.line('x_freq', 'powF_lE', source=freqDataSource, line_width=2, 
+freqGraphTop.line(x='x_freq', y='powF_lE', source=freqDataSource, line_width=2, 
         color=colPalette[0], legend_label="FFT Codo Izq.")
-freqGraphTop.line('x_freq', 'powF_lW', source=freqDataSource, line_width=2, 
+freqGraphTop.line(x='x_freq', y='powF_lW', source=freqDataSource, line_width=2, 
         color=colPalette[3], legend_label="FFT Muñeca Izq")
 freqGraphTop.legend.location = "top_right"
 freqGraphTop.legend.click_policy="hide"
 
 freqGraphBott = figure(plot_width=570, plot_height=270)
-freqGraphBott.line('x_freq', 'powF_body', source=freqDataSource, line_width=2, 
+freqGraphBott.line(x='x_freq', y='powF_body', source=freqDataSource, line_width=2, 
         color=colPalette[2], legend_label="FFT Pecho.")
-freqGraphBott.line('x_freq', 'powF_rK', source=freqDataSource, line_width=2, 
+freqGraphBott.line(x='x_freq', y='powF_rK', source=freqDataSource, line_width=2, 
         color=colPalette[1], legend_label="FFT Rodilla Der.")
-freqGraphBott.line('x_freq', 'powF_rF', source=freqDataSource, line_width=2, 
+freqGraphBott.line(x='x_freq', y='powF_rF', source=freqDataSource, line_width=2, 
         color=colPalette[4], legend_label="FFT Pie Der.")
-freqGraphBott.line('x_freq', 'powF_lK', source=freqDataSource, line_width=2, 
+freqGraphBott.line(x='x_freq', y='powF_lK', source=freqDataSource, line_width=2, 
         color=colPalette[0], legend_label="FFT Rodilla Izq.")
-freqGraphBott.line('x_freq', 'powF_lF', source=freqDataSource, line_width=2, 
+freqGraphBott.line(x='x_freq', y='powF_lF', source=freqDataSource, line_width=2, 
         color=colPalette[3], legend_label="FFT Pie Izq.")
 freqGraphBott.legend.location = "top_right"
 freqGraphBott.legend.click_policy="hide"
@@ -555,18 +592,18 @@ bodyHM.yaxis.visible = False
 bodyHM.grid.visible = False
 
 bodyHM.hex_tile(q='hexCoordQ', r='hexCoordR', size=1, source=tableSource, 
-           fill_color=transform('abs_dsplc', colMapper),
+           fill_color=transform('abs_dsplc', colMapper), name="bodyHMHexTile",
            line_color="black", line_width=1, alpha=0.9)
 
 x, y = axial_to_cartesian(skelViewData.hexCoordQ, skelViewData.hexCoordR, 1, "pointytop")
-bodyHM.text(x, y, text=[str(coord) for coord in skelViewData.name_es],
+bodyHM.text(x=x, y=y, text=[str(coord) for coord in skelViewData.name_es],
        text_baseline="middle", text_align="center", text_color="black", text_font_size="10px")
 
-color_bar = ColorBar(color_mapper=colMapper, #ticker=LogTicker(), BasicTicker
+color_bar = ColorBar(color_mapper=colMapper, name="bodyHMColorMap",#ticker=LogTicker(), BasicTicker
                      label_standoff=5, major_label_text_color="gray", border_line_color=None, location=(0,0))
 bodyHM.add_layout(color_bar, 'right')
-
-
+bodyHMColbar=bodyHM.select({"name":"bodyHMColorMap"})
+bodyHMHexTile=bodyHM.select({"name":"bodyHMHexTile"})
 
 #Freq image map
 maxF=len(powF_body)//4
@@ -597,9 +634,6 @@ color_bar = ColorBar(color_mapper=colMapperFq, #ticker=LogTicker(), BasicTicker
                      label_standoff=5, major_label_text_color="gray", border_line_color=None, location=(0,0))
 freqHeatmap.add_layout(color_bar, 'right')
 
-
-
-
 tabHeatMapBody = Panel(child=bodyHM, title="Heatmap Recorridos")
 tabHeatMapFreq = Panel(child=freqHeatmap, title="Heatmap Frecuencias")
 tabsHMaps = Tabs(tabs=[ tabHeatMapBody, tabHeatMapFreq ], name="heatMaps")
@@ -612,6 +646,7 @@ curdoc().add_root(tabsHMaps)
 # Network Graph    - h, w, csvSrc, graphTileTextColor, currFrame, mySkeleton, myStudy
 
 xmin, ymin, xmax, ymax = zoomCenterSmCoords(h,w)
+graphTileTextColor="#7e685a" #brown silver?
 skPlot = figure(x_range=(0, w), y_range=(h, 0), name="netGraph", outline_line_color=None,
               tools='pan,wheel_zoom,box_zoom,reset,tap,box_select,hover', plot_width=570,plot_height=300, 
               tooltips=[("coord", "$x{0.0} $y{0.0}"), ("art", "$index")])
@@ -645,7 +680,7 @@ curdoc().add_root(skPlot)
 # Table
 
 
-columns = [
+tableCols = [
         TableColumn(field="name_es", title="Articulación"),
         TableColumn(field="displacement", title="Movimiento", 
                     formatter=NumberFormatter(format="0.00", text_align="right")),
@@ -656,7 +691,7 @@ columns = [
         TableColumn(field="avg_speed", title="Vel Prom", 
                     formatter=NumberFormatter(format="0.00", text_align="right")),
     ]
-data_table = DataTable(source=tableSource, name="dataTable_kpis", columns=columns, width=560, height=290)
+data_table = DataTable(source=tableSource, name="dataTable_kpis", columns=tableCols, width=560, height=290)
 
 curdoc().add_root(data_table)
 

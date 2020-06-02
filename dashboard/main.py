@@ -351,7 +351,7 @@ def updateFreqHeatMap():
 # Opening menus controls definition
 buttonSave = Button(label="Guardar Estudio", button_type="success", disabled=True)
 outputStatus = Paragraph(text="Seleccione estudio para continuar", width=80, css_classes=['text-success'])
-selectStudy = Select(title='Cargar Estudio', value='', options=readFilesList('studies'))
+selectStudy = Select(title='Cargar Estudio', value=VideoFileName, options=readFilesList('studies'))
 selectStudy.on_change('value', openStudioCbk)
 selectVideo = Select(title='Abrir Video', value='', options=readFilesList('videos'), disabled=True)
 def openVideoCbk(attr,old,new):
